@@ -11,10 +11,19 @@ export default function useSavedItems(initialItems?: savedItemsCollection) {
 	const addItem = (item: SavedItem) => {
 		updateItems([...items, item]);
 	};
+
+	const updateItem = (item: SavedItem) => {
+		updateItems(
+			items.map((i: SavedItem) => {
+				return i.id === item.id ? item : i;
+			})
+		);
+	};
 	return {
 		items,
 		updateItems,
 		getItemById,
 		addItem,
+		updateItem,
 	};
 }

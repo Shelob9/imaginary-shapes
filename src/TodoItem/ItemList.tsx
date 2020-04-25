@@ -23,10 +23,10 @@ export function ItemShort(props: {
 export default function ItemList(props: {
 	items: savedItemsCollection;
 	notFoundText: string;
-	onOpenIitem: onOpenType;
+	onOpenItem: onOpenType;
 	updateItem: (update: Item) => void;
 }) {
-	const { items, notFoundText, onOpenIitem } = props;
+	const { items, notFoundText, onOpenItem: onOpenIitem } = props;
 	if (!items.length) {
 		return <p>{notFoundText}</p>;
 	}
