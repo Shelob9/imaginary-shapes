@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Profile from "./Profile.js";
 import Signin from "./Signin.js";
 import { UserSession, AppConfig, Person } from "blockstack";
@@ -7,7 +7,7 @@ import { SavedItem, savedItemsCollection } from "./sorter/types.js";
 import useSavedItems from "./TodoItem/useSavedItems";
 import { New } from "./TodoItem/New";
 import { Edit } from "./TodoItem/Edit";
-
+import { Layout } from "./Layout";
 import ItemList from "./TodoItem/ItemList";
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
@@ -224,16 +224,17 @@ export default function App() {
 	}, []);
 
 	return (
-		<div className="site-wrapper">
-			<div className="site-wrapper-inner">
-				{!userSession.isUserSignedIn() ? (
-					<Signin userSession={userSession} handleSignIn={handleSignIn} />
-				) : (
-					<React.Fragment>
-						<Routes userSession={userSession} handleSignOut={handleSignOut} />
-					</React.Fragment>
-				)}
-			</div>
-		</div>
+		<Layout
+			Sidebar={() => <div style={{ width: "151px" }}>Sidebar</div>}
+			Header={() => <div>Header</div>}
+		>
+			{!userSession.isUserSignedIn() ? (
+				<Signin userSession={userSession} handleSignIn={handleSignIn} />
+			) : (
+				<React.Fragment>
+					<Routes userSession={userSession} handleSignOut={handleSignOut} />
+				</React.Fragment>
+			)}
+		</Layout>
 	);
 }
