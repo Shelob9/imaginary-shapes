@@ -1,8 +1,8 @@
-import { Item, itemCollection } from 'types';
+import { Item, itemCollection } from "./types";
 
 function findByTitle(title: string, items: itemCollection): Item | null {
-  const result = items.find((i: Item) => title === i.title);
-  return result ? result : null;
+	const result = items.find((i: Item) => title === i.title);
+	return result ? result : null;
 }
 
 /**
@@ -12,11 +12,11 @@ function findByTitle(title: string, items: itemCollection): Item | null {
  * @param collectionTwo
  */
 function difference(
-  collectionOne: itemCollection,
-  collectionTwo: itemCollection
+	collectionOne: itemCollection,
+	collectionTwo: itemCollection
 ): itemCollection | null {
-  const result = collectionOne.filter(x => !collectionTwo.includes(x));
-  return result ? result : null;
+	const result = collectionOne.filter((x) => !collectionTwo.includes(x));
+	return result ? result : null;
 }
 
 /**
@@ -27,21 +27,21 @@ function difference(
  * @param collectionTwo
  */
 function itersection(
-  collectionOne: itemCollection | null,
-  collectionTwo: itemCollection | null
+	collectionOne: itemCollection | null,
+	collectionTwo: itemCollection | null
 ): itemCollection | null {
-  if (collectionOne === null && collectionTwo === null) {
-    return null;
-  }
-  if (collectionTwo === null) {
-    return collectionOne;
-  }
+	if (collectionOne === null && collectionTwo === null) {
+		return null;
+	}
+	if (collectionTwo === null) {
+		return collectionOne;
+	}
 
-  if (collectionOne === null) {
-    return collectionTwo;
-  }
-  const result = collectionOne.filter(value => collectionTwo.includes(value));
-  return result ? result : null;
+	if (collectionOne === null) {
+		return collectionTwo;
+	}
+	const result = collectionOne.filter((value) => collectionTwo.includes(value));
+	return result ? result : null;
 }
 
 export { findByTitle, itersection, difference };

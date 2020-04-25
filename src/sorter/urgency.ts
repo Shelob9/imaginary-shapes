@@ -1,12 +1,12 @@
-import { itemCollection } from './types';
+import { itemCollection } from "./types";
 
-import { urgentOnly, importantanceSort, urgencySort } from './sorters';
+import { urgentOnly, importantanceSort, urgencySort } from "./sorters";
 
 export default function urgency(items: itemCollection): itemCollection {
-  let results = urgentOnly(items);
-  if (null !== results) {
-    urgencySort(results);
-    importantanceSort(results);
-  }
-  return results;
+	let results = urgentOnly(items);
+	if (null !== results) {
+		urgencySort(results);
+		importantanceSort(results);
+	}
+	return results;
 }
