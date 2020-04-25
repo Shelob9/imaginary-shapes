@@ -3,35 +3,8 @@ import React, { ChangeEvent, Fragment } from "react";
 import { Item } from "../sorter/types";
 import Title from "./Title";
 import useItem from "./useItem";
-type valueType = string | number;
-export function Input(props: {
-	id: string;
-	type: "input" | "number" | "date" | "submit";
-	value: valueType;
-	onChange: (value: valueType) => void;
-	label: string;
-	input?: React.ComponentType<{}>;
-}) {
-	return (
-		<div>
-			<label htmlFor={props.id}>{props.label}</label>
-			{props.input ? (
-				<Fragment>{props.input}</Fragment>
-			) : (
-				<input
-					id={props.id}
-					value={props.value}
-					required
-					onChange={(e: ChangeEvent<HTMLInputElement>) =>
-						props.onChange(e.target.value)
-					}
-					type={props.type}
-				/>
-			)}
-		</div>
-	);
-}
-
+import InputField from "../InputField";
+import { Input, Styled, Box } from "theme-ui";
 export function Edit(props: {
 	titleText: string;
 	submitText: string;
@@ -49,9 +22,9 @@ export function Edit(props: {
 	const { title, urgency, importance, due, fun } = item;
 
 	return (
-		<div>
-			<h3>{titleText}</h3>
-			<form onSubmit={handleSave} aria-label={titleText}>
+		<Styled.div>
+			<Styled.h3>{titleText}</Styled.h3>
+			<Box as="form" onSubmit={handleSave} aria-label={titleText}>
 				<Title
 					{...{
 						type: "input",
@@ -61,7 +34,7 @@ export function Edit(props: {
 						title,
 					}}
 				/>
-				<Input
+				<InputField
 					{...{
 						type: "number",
 						id: "urgency",
@@ -70,7 +43,7 @@ export function Edit(props: {
 						onChange: (urgency: number) => updateItem({ ...item, urgency }),
 					}}
 				/>
-				<Input
+				<InputField
 					{...{
 						type: "number",
 						id: "importance",
@@ -80,7 +53,7 @@ export function Edit(props: {
 							updateItem({ ...item, importance }),
 					}}
 				/>
-				<Input
+				<InputField
 					{...{
 						type: "number",
 						id: "fun",
@@ -89,7 +62,7 @@ export function Edit(props: {
 						onChange: (fun: number) => updateItem({ ...item, fun }),
 					}}
 				/>
-				<input
+				<Input
 					id={"save"}
 					value={submitText}
 					onClick={(event: React.MouseEvent) => {
@@ -98,7 +71,7 @@ export function Edit(props: {
 					}}
 					type={"submit"}
 				/>
-			</form>
-		</div>
+			</Box>
+		</Styled.div>
 	);
 }

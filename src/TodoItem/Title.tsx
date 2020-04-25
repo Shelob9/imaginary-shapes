@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "./Edit";
+import { Input } from "theme-ui";
 
 type P = {
 	setTitle: (newValue: string) => void;
