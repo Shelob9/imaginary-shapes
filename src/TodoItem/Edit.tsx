@@ -89,7 +89,6 @@ export function Edit(props: {
 						onChange: (fun: number) => updateItem({ ...item, fun }),
 					}}
 				/>
-				<label htmlFor={"save"}>Save</label>
 				<input
 					id={"save"}
 					value={submitText}
