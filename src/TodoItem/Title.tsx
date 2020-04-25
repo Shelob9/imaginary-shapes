@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "theme-ui";
+import InputField from "../InputField";
 
 type P = {
 	setTitle: (newValue: string) => void;
@@ -8,7 +8,7 @@ type P = {
 
 function Field(props: P) {
 	return (
-		<Input
+		<InputField
 			{...{
 				type: "input",
 				id: "title",

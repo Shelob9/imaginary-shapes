@@ -11,14 +11,7 @@ const SavingIndicator = (props: { isSaving: boolean }) =>
 	props.isSaving ? <div>Saving Spinner</div> : null;
 
 export default function ItemsPage(props: { userSession: UserSession }) {
-	const {
-		addItem,
-		activeItem,
-		saveNewItem,
-		updateItem,
-		items,
-		setActiveItemId,
-	} = useBlockStackSavedItems(props.userSession);
+	const { items } = useBlockStackSavedItems(props.userSession);
 
 	return (
 		<Box>

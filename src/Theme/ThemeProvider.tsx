@@ -23,13 +23,13 @@ const theme = {
 	colors: {
 		text: blackTint,
 		background: white,
-		primary: "#07c",
+		primary: blackTint,
 		secondary: "yellow",
 		modes: {
 			dark: {
+				primary: whiteTint,
 				text: whiteTint,
 				background: blackTint,
-				primary: "#0cf",
 			},
 		},
 	},

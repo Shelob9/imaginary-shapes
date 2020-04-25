@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 export function A(props: { to: string; children: string; title?: string }) {
 	const history = useHistory();
 
-	const onClick = () => {
+	const onClick = (e: React.ChangeEvent<any>) => {
+		e.preventDefault();
 		history.push(props.to);
 	};
 
