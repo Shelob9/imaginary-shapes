@@ -6,6 +6,7 @@ import { SavedItem } from "../sorter/types";
 import ItemList from "../TodoItem/ItemList";
 import { New } from "../TodoItem/New";
 import { ItemsContext } from "../ItemsContext";
+import SortedItems from "../SortedItems";
 const LoadingIndicator = (props: { isLoading: boolean }) =>
 	props.isLoading ? <div>Loading Spinner</div> : null;
 const SavingIndicator = (props: { isSaving: boolean }) =>
@@ -43,14 +44,7 @@ export default function ItemsPage() {
 	}
 	return (
 		<div>
-			<div>Items List</div>
-			<ItemList
-				items={items}
-				notFoundText={"No Items"}
-				updateItem={updateItem}
-				onOpenItem={setActiveItemId}
-			/>
-			<New onSave={onSave} />
+			<SortedItems />
 		</div>
 	);
 }
