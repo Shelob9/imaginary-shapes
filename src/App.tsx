@@ -6,6 +6,8 @@ import { Switch, Route, useParams, useHistory } from "react-router-dom";
 import { SavedItem, savedItemsCollection } from "./sorter/types.js";
 import useSavedItems from "./TodoItem/useSavedItems";
 import { New } from "./TodoItem/New";
+import { Edit } from "./TodoItem/Edit";
+
 import ItemList from "./TodoItem/ItemList";
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
@@ -28,11 +30,11 @@ function useBlockStackSavedItems(
 	} = useSavedItems([]);
 	const activeItem = React.useMemo<SavedItem | undefined>(() => {
 		return activeItemId ? getItemById(activeItemId) : undefined;
-	}, [activeItemId]);
+	}, [activeItemId, items]);
 
 	const fileName = `todoItems_v1.json`;
 
-	const saveItems = () => {
+	const _doSave = (items: savedItemsCollection) => {
 		return new Promise((resolve) => {
 			const options = { encrypt: false };
 			setIsSaving(true);
@@ -48,24 +50,20 @@ function useBlockStackSavedItems(
 				});
 		});
 	};
+	const saveItems = () => {
+		return _doSave(items);
+	};
 
 	const saveNewItem = (newItem: SavedItem) => {
 		const update = [...items, newItem];
-		return new Promise((resolve) => {
-			const options = { encrypt: false };
-			setIsSaving(true);
-			userSession
-				.putFile(fileName, JSON.stringify(update), options)
-				.catch((e) => {
-					console.log(e);
-					resolve();
-				})
-				.finally(() => {
-					updateItems(update);
-					setIsSaving(false);
-					resolve();
-				});
+		return _doSave(update);
+	};
+
+	const saveItem = (newItem: SavedItem) => {
+		const update = items.map((item: SavedItem) => {
+			return item.id === newItem.id ? newItem : item;
 		});
+		return _doSave(update);
 	};
 
 	const getItems = () => {
@@ -105,12 +103,43 @@ function useBlockStackSavedItems(
 		updateItem,
 		items,
 		saveNewItem,
+		saveItem,
 	};
 }
 
-function ItemPage() {
+const LoadingIndicator = (props: { isLoading: boolean }) =>
+	props.isLoading ? <div>Loading Spinner</div> : null;
+const SavingIndicator = (props: { isSaving: boolean }) =>
+	props.isSaving ? <div>Saving Spinner</div> : null;
+
+function ItemPage(props: { userSession: UserSession }) {
+	const {
+		activeItem,
+		saveItem,
+		setActiveItemId,
+		isLoading,
+		isSaving,
+	} = useBlockStackSavedItems(props.userSession);
 	let { id } = useParams();
-	return <div>Now {id}</div>;
+
+	React.useEffect(() => {
+		setActiveItemId(id);
+	}, [id]);
+
+	return (
+		<React.Fragment>
+			<LoadingIndicator isLoading={isLoading} />
+			<SavingIndicator isSaving={isSaving} />
+			{activeItem ? (
+				<Edit
+					onSave={saveItem}
+					titleText={activeItem.title}
+					initialItem={activeItem}
+					submitText={"Update"}
+				/>
+			) : null}
+		</React.Fragment>
+	);
 }
 
 function ItemsPage(props: { userSession: UserSession }) {
@@ -125,7 +154,10 @@ function ItemsPage(props: { userSession: UserSession }) {
 	const history = useHistory();
 
 	const onSave = (item: SavedItem) => {
-		saveNewItem(item).then(history.push(`/items/${item.id}`));
+		saveNewItem(item).then(() => {
+			addItem(item);
+			history.push(`/items/${item.id}`);
+		});
 	};
 
 	if (activeItem) {
@@ -158,7 +190,7 @@ const Routes = (props: {
 				/>
 			</Route>
 			<Route path="/items/:id">
-				<ItemPage />
+				<ItemPage userSession={props.userSession} /> />
 			</Route>
 			<Route path="/items">
 				<ItemsPage userSession={props.userSession} />

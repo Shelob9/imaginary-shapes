@@ -89,18 +89,6 @@ export function Edit(props: {
 						onChange: (fun: number) => updateItem({ ...item, fun }),
 					}}
 				/>
-				<Input
-					{...{
-						type: "date",
-						id: "due",
-						label: "Due",
-						value: due ? due.toString() : null,
-						onChange: (value: string) => {
-							let due = new Date(value);
-							updateItem({ ...item, due });
-						},
-					}}
-				/>
 				<label htmlFor={"save"}>Save</label>
 				<input
 					id={"save"}
