@@ -205,43 +205,35 @@ const Routes = (props: {
 		</Switch>
 	);
 };
-export default class App extends Component {
-	handleSignIn() {
+
+export default function App() {
+	function handleSignIn() {
 		userSession.redirectToSignIn();
 	}
 
-	handleSignOut() {
+	function handleSignOut() {
 		userSession.signUserOut(window.location.origin);
 	}
 
-	render() {
-		return (
-			<div className="site-wrapper">
-				<div className="site-wrapper-inner">
-					{!userSession.isUserSignedIn() ? (
-						<Signin
-							userSession={userSession}
-							handleSignIn={this.handleSignIn}
-						/>
-					) : (
-						<React.Fragment>
-							<Routes
-								userSession={userSession}
-								handleSignOut={this.handleSignOut}
-							/>
-						</React.Fragment>
-					)}
-				</div>
-			</div>
-		);
-	}
-
-	componentDidMount() {
+	React.useEffect(() => {
 		if (userSession.isSignInPending()) {
 			userSession.handlePendingSignIn().then((userData) => {
 				window.history.replaceState({}, document.title, "/");
-				this.setState({ userData: userData });
 			});
 		}
-	}
+	}, []);
+
+	return (
+		<div className="site-wrapper">
+			<div className="site-wrapper-inner">
+				{!userSession.isUserSignedIn() ? (
+					<Signin userSession={userSession} handleSignIn={handleSignIn} />
+				) : (
+					<React.Fragment>
+						<Routes userSession={userSession} handleSignOut={handleSignOut} />
+					</React.Fragment>
+				)}
+			</div>
+		</div>
+	);
 }
