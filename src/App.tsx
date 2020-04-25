@@ -5,13 +5,13 @@ import { UserSession, AppConfig } from "blockstack";
 import { Switch, Route } from "react-router-dom";
 
 import { Layout } from "./Layout";
-
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
 
 //Lazy-loaded pages
 const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
 const ItemsPage = React.lazy(() => import("./Pages/ItemsPage"));
+const ItemsList = React.lazy(() => import("./Widgets/ItemsList"));
 
 const Routes = (props: {
 	handleSignOut: () => void;
@@ -31,13 +31,7 @@ const Routes = (props: {
 			<Route path="/items">
 				<ItemsPage userSession={props.userSession} />
 			</Route>
-			<Route path="/">
-				<ItemsPage userSession={props.userSession} />
-				<Profile
-					userSession={props.userSession}
-					handleSignOut={props.handleSignOut}
-				/>
-			</Route>
+			<Route path="/">Home Page</Route>
 		</Switch>
 	);
 };
@@ -62,7 +56,11 @@ export default function App() {
 	return (
 		<Suspense fallback={"Loading"}>
 			<Layout
-				Sidebar={() => <div style={{ width: "151px" }}>Sidebar</div>}
+				Sidebar={() => (
+					<div>
+						<ItemsList userSession={userSession} />
+					</div>
+				)}
 				Header={() => <div>Header</div>}
 			>
 				{!userSession.isUserSignedIn() ? (

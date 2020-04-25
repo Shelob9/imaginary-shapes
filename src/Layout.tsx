@@ -39,6 +39,7 @@ export function Layout(props: {
 						sx={{
 							flexGrow: 1,
 							flexBasis: "sidebar",
+							minWidth: "300px",
 						}}
 					>
 						<Sidebar />
