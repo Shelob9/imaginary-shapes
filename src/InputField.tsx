@@ -11,6 +11,8 @@ export default function (props: {
 	label: string;
 	input?: React.ComponentType<{}>;
 }) {
+	let additionalProps =
+		"number" === props.type ? { min: 0, step: 1, max: 10 } : {};
 	return (
 		<div>
 			<Label name={props.id} htmlFor={props.id}>
@@ -25,6 +27,7 @@ export default function (props: {
 					props.onChange(e.target.value)
 				}
 				type={props.type}
+				{...additionalProps}
 			/>
 		</div>
 	);

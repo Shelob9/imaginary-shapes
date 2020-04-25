@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import ItemsList from "./Widgets/ItemsList";
 import { Layout } from "./Layout";
 import Header from "./Widgets/Header";
+import { ItemsProvider, ItemsContext } from "./ItemsContext";
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
 
@@ -17,22 +18,26 @@ const Routes = (props: {
 	handleSignOut: () => void;
 	userSession: UserSession;
 }) => {
-	return (
-		<Switch>
-			<Route path="/profile">
-				<Profile
-					userSession={props.userSession}
-					handleSignOut={props.handleSignOut}
-				/>
-			</Route>
-			<Route path="/items/:id">
-				<ItemPage userSession={props.userSession} /> />
-			</Route>
-			<Route path="/items">
-				<ItemsPage userSession={props.userSession} />
-			</Route>
-			<Route path="/">Home Page</Route>
-		</Switch>
+	const { items } = React.useContext(ItemsContext);
+	return React.useMemo(
+		() => (
+			<Switch>
+				<Route path="/profile">
+					<Profile
+						userSession={props.userSession}
+						handleSignOut={props.handleSignOut}
+					/>
+				</Route>
+				<Route path="/items/:id">
+					<ItemPage />
+				</Route>
+				<Route path="/items">
+					<ItemsPage />
+				</Route>
+				<Route path="/">Home Page</Route>
+			</Switch>
+		),
+		[items]
 	);
 };
 
@@ -55,22 +60,20 @@ export default function App() {
 
 	return (
 		<Suspense fallback={"Loading"}>
-			<Layout
-				Sidebar={() => (
-					<div>
-						<ItemsList userSession={userSession} />
-					</div>
-				)}
-				Header={() => <Header />}
-			>
-				{!userSession.isUserSignedIn() ? (
-					<Signin userSession={userSession} handleSignIn={handleSignIn} />
-				) : (
-					<React.Fragment>
-						<Routes userSession={userSession} handleSignOut={handleSignOut} />
-					</React.Fragment>
-				)}
-			</Layout>
+			<ItemsProvider userSession={userSession}>
+				<Layout
+					Sidebar={() => <div>{userSession ? <ItemsList /> : null}</div>}
+					Header={() => <Header />}
+				>
+					{!userSession.isUserSignedIn() ? (
+						<Signin userSession={userSession} handleSignIn={handleSignIn} />
+					) : (
+						<React.Fragment>
+							<Routes userSession={userSession} handleSignOut={handleSignOut} />
+						</React.Fragment>
+					)}
+				</Layout>
+			</ItemsProvider>
 		</Suspense>
 	);
 }

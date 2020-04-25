@@ -10,21 +10,34 @@ export function Edit(props: {
 	submitText: string;
 	onSave: (item: Item) => void;
 	initialItem?: Item;
+	activeItemId: string;
 }) {
 	const { titleText, onSave, submitText, initialItem } = props;
 
 	const { item, updateItem } = useItem(initialItem ? initialItem : null);
 
+	React.useEffect(() => {
+		if (initialItem) {
+			updateItem(initialItem);
+		} else {
+			updateItem({ title: "", importance: 0, urgency: 0 });
+		}
+	}, [props.activeItemId]);
 	function handleSave() {
 		return onSave(item);
 	}
 
-	const { title, urgency, importance, due, fun } = item;
+	const { title, urgency, importance, fun } = item;
 
 	return (
 		<Styled.div>
 			<Styled.h3>{titleText}</Styled.h3>
-			<Box as="form" onSubmit={handleSave} aria-label={titleText}>
+			<Box
+				as="form"
+				onSubmit={handleSave}
+				aria-label={titleText}
+				key={props.activeItemId}
+			>
 				<Title
 					{...{
 						type: "input",

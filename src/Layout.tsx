@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Box } from "theme-ui";
+
 export function Layout(props: {
 	children: any;
 	Header: () => any;

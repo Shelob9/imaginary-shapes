@@ -2,6 +2,7 @@ import { UserSession } from "blockstack";
 import React from "react";
 import useSavedItems from "./TodoItem/useSavedItems";
 import { SavedItem, savedItemsCollection } from "./sorter/types";
+
 export default function useBlockStackSavedItems(
 	userSession: UserSession,
 	intitalActiveItemId?: string
@@ -24,7 +25,7 @@ export default function useBlockStackSavedItems(
 
 	const fileName = `todoItems_v1.json`;
 
-	const _doSave = (items: savedItemsCollection) => {
+	const _doSave = (items: savedItemsCollection): Promise<void> => {
 		return new Promise((resolve) => {
 			const options = { encrypt: false };
 			setIsSaving(true);
@@ -46,14 +47,14 @@ export default function useBlockStackSavedItems(
 
 	const saveNewItem = (newItem: SavedItem) => {
 		const update = [...items, newItem];
-		return _doSave(update);
+		return _doSave(update).then(() => updateItems(update));
 	};
 
 	const saveItem = (newItem: SavedItem) => {
 		const update = items.map((item: SavedItem) => {
 			return item.id === newItem.id ? newItem : item;
 		});
-		return _doSave(update);
+		return _doSave(update).then(() => updateItems(update));
 	};
 
 	const getItems = () => {
