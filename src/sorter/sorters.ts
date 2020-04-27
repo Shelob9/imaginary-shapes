@@ -28,6 +28,7 @@ function funSort(items: itemCollection) {
 		return a.fun < b.fun ? 1 : -1;
 	});
 }
+
 function urgentOnly(items: itemCollection): itemCollection {
 	return onlyGreater(items, "urgency", 5);
 }

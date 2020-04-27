@@ -1,7 +1,7 @@
-import { itemCollection } from "./types";
+import { itemCollection, savedItemsCollection } from "./types";
 import { importantOnly, urgentOnly } from "./sorters";
 import { itersection, difference } from "./find";
-type quadrant = itemCollection | null;
+type quadrant = itemCollection | savedItemsCollection | null;
 type quadrantsType = {
 	topLeft: quadrant;
 	topRight: quadrant;
