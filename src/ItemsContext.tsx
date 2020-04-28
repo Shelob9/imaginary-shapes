@@ -41,13 +41,7 @@ export const ItemsProvider = (props: {
 		items,
 		saveNewItem,
 		saveItem,
-		getItems,
 	} = useBlockStackSavedItems(props.userSession, props.intitalActiveItemId);
-
-	//Call once to set items
-	React.useEffect(() => {
-		//getItems();
-	}, [getItems]);
 
 	const hasChanged = false;
 	return (

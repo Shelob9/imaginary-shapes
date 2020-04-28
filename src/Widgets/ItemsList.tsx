@@ -11,11 +11,13 @@ const SavingIndicator = (props: { isSaving: boolean }) =>
 	props.isSaving ? <div>Saving Spinner</div> : null;
 
 export default function ItemsPage() {
-	const { items } = useContext(ItemsContext);
+	const { items, isLoading, isSaving } = useContext(ItemsContext);
 
 	return (
 		<Box>
 			<Styled.h3>Items Being Tracked</Styled.h3>
+			<LoadingIndicator isLoading={isLoading} />
+			<SavingIndicator isSaving={isSaving} />
 			<Styled.ul>
 				{items.map((item: SavedItem) => (
 					<Styled.li

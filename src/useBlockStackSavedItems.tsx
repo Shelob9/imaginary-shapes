@@ -2,6 +2,7 @@ import { UserSession } from "blockstack";
 import React from "react";
 import useSavedItems from "./TodoItem/useSavedItems";
 import { SavedItem, savedItemsCollection } from "./sorter/types";
+import { useEffectOnce } from "react-use";
 
 export default function useBlockStackSavedItems(
 	userSession: UserSession,
@@ -77,6 +78,11 @@ export default function useBlockStackSavedItems(
 				});
 		});
 	};
+
+	//Load items on first load
+	useEffectOnce(() => {
+		getItems();
+	});
 
 	return {
 		getItemById,
