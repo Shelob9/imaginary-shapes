@@ -38,7 +38,7 @@ const styles = {
 	},
 	// from typography overrideThemeStyles
 	a: {
-		color: "white",
+		color: blackTint,
 	},
 	hr: {
 		borderColor: `muted`,
@@ -74,7 +74,6 @@ const theme = {
 		text: blackTint,
 		background: white,
 		primary: blackTint,
-		secondary: "yellow",
 		modes: {
 			dark: {
 				primary: whiteTint,

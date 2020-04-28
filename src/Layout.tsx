@@ -1,70 +1,72 @@
 /** @jsx jsx */
-import { jsx, Box } from "theme-ui";
-
+import { jsx, Box, Container } from "theme-ui";
 export function Layout(props: {
 	children: any;
 	Header: () => any;
 	Sidebar: () => any;
 }) {
 	const { Header, Sidebar } = props;
-	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				minHeight: "100vh",
-			}}
-		>
-			<Box
-				sx={{
-					width: "100%",
-				}}
-			>
-				<Header />
-			</Box>
 
+	return (
+		<Container p={4}>
 			<Box
 				sx={{
-					width: "100%",
-					flex: "1 1 auto",
+					display: "flex",
+					flexDirection: "column",
+					minHeight: "100vh",
 				}}
 			>
 				<Box
 					sx={{
-						display: "flex",
-						flexWrap: "wrap",
+						width: "100%",
+					}}
+				>
+					<Header />
+				</Box>
+
+				<Box
+					sx={{
+						width: "100%",
+						flex: "1 1 auto",
 					}}
 				>
 					<Box
-						as={"aside"}
 						sx={{
-							flexGrow: 1,
-							flexBasis: "sidebar",
-							minWidth: "300px",
+							display: "flex",
+							flexWrap: "wrap",
 						}}
 					>
-						<Sidebar />
-					</Box>
-					<Box
-						as={"main"}
-						sx={{
-							flexGrow: 99999,
-							flexBasis: 0,
-							minWidth: 320,
-						}}
-					>
-						{props.children}
+						<Box
+							as={"aside"}
+							sx={{
+								flexGrow: 1,
+								flexBasis: "sidebar",
+								minWidth: "300px",
+							}}
+						>
+							<Sidebar />
+						</Box>
+						<Box
+							as={"main"}
+							sx={{
+								flexGrow: 99999,
+								flexBasis: 0,
+								minWidth: 320,
+							}}
+						>
+							{props.children}
+						</Box>
 					</Box>
 				</Box>
+				<Box
+					as={"footer"}
+					sx={{
+						width: "100%",
+					}}
+				>
+					Footer
+				</Box>
 			</Box>
-			<Box
-				as={"footer"}
-				sx={{
-					width: "100%",
-				}}
-			>
-				Footer
-			</Box>
-		</Box>
+		</Container>
 	);
 }

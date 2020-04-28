@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
-import Profile from "./Profile.js";
-import Signin from "./Signin.js";
+import Signin from "./Signin";
 import { UserSession, AppConfig } from "blockstack";
 import { Switch, Route } from "react-router-dom";
 import ItemsList from "./Widgets/ItemsList";
@@ -16,31 +15,35 @@ const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
 const ItemsPage = React.lazy(() => import("./Pages/ItemsPage"));
 
 const Routes = () => {
-	const { userSession, handleSignOut } = React.useContext(UserSessionContext);
+	const { isLoggedIn } = React.useContext(UserSessionContext);
 	return (
 		<Switch>
-			<Route path="/profile">
-				<Profile userSession={userSession} handleSignOut={handleSignOut} />
-			</Route>
-			<Route path="/items/:id">
-				<ItemPage />
-			</Route>
-			<Route path="/items">
-				<ItemsPage />
-			</Route>
-			<Route path="/">Home Page</Route>
+			{isLoggedIn ? (
+				<React.Fragment>
+					<Route path="/items/:id">
+						<ItemPage />
+					</Route>
+					<Route path="/items">
+						<ItemsPage />
+					</Route>
+					<Route path="/">Home Page</Route>
+				</React.Fragment>
+			) : (
+				<Route path="/">Hi</Route>
+			)}
 		</Switch>
 	);
 };
 
 function Main() {
-	const { userSession } = React.useContext(UserSessionContext);
+	const { isLoggedIn } = React.useContext(UserSessionContext);
+
 	return (
 		<Layout
-			Sidebar={() => <div>{userSession ? <ItemsList /> : null}</div>}
+			Sidebar={() => <div>{isLoggedIn ? <ItemsList /> : null}</div>}
 			Header={() => <Header />}
 		>
-			{!userSession.isUserSignedIn() ? (
+			{!isLoggedIn ? (
 				<Signin />
 			) : (
 				<React.Fragment>
@@ -51,14 +54,6 @@ function Main() {
 	);
 }
 export default function App() {
-	React.useEffect(() => {
-		if (userSession.isSignInPending()) {
-			userSession.handlePendingSignIn().then((userData) => {
-				window.history.replaceState({}, document.title, "/");
-			});
-		}
-	}, []);
-
 	return (
 		<Suspense fallback={"Loading"}>
 			<UserSessionProvider userSession={userSession}>

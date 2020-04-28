@@ -72,7 +72,7 @@ const OneItem = (props: { item: SavedItem; lock: boolean }) => {
 const ItemsList = (props: { items: savedItemsCollection; lock: boolean }) => (
 	<React.Fragment>
 		{props.items.map((item: SavedItem) => (
-			<OneItem key={item.title} item={item} lock={props.lock} />
+			<OneItem key={item.id} item={item} lock={props.lock} />
 		))}
 	</React.Fragment>
 );

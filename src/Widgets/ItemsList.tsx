@@ -21,6 +21,7 @@ export default function ItemsPage() {
 			<Styled.ul>
 				{items.map((item: SavedItem) => (
 					<Styled.li
+						key={item.id}
 						sx={{
 							maxWidth: 256,
 						}}
