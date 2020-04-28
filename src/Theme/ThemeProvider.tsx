@@ -1,5 +1,5 @@
 import React from "react";
-import { useColorMode, Button, ThemeProvider } from "theme-ui";
+import { ThemeProvider } from "theme-ui";
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 const blackTint = "#262626";
@@ -84,20 +84,6 @@ const theme = {
 		},
 	},
 	styles,
-};
-
-export const ToggleColorMode = () => {
-	const [colorMode, setColorMode] = useColorMode();
-	return (
-		<Button
-			onClick={(e: React.MouseEvent) => {
-				e.preventDefault();
-				setColorMode(colorMode === "default" ? "dark" : "default");
-			}}
-		>
-			{colorMode === "default" ? "Dark" : "Light"}
-		</Button>
-	);
 };
 
 export default (props: { children: any }) => (

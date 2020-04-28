@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Styled, useColorMode, Button } from "theme-ui";
 import { useHistory } from "react-router-dom";
+
 export function A(props: { to: string; children: string; title?: string }) {
 	const history = useHistory();
 
@@ -15,3 +16,17 @@ export function A(props: { to: string; children: string; title?: string }) {
 		</Styled.a>
 	);
 }
+
+export const ToggleColorMode = () => {
+	const [colorMode, setColorMode] = useColorMode("dark");
+	return (
+		<Button
+			onClick={(e: React.MouseEvent) => {
+				e.preventDefault();
+				setColorMode(colorMode === "default" ? "dark" : "default");
+			}}
+		>
+			{colorMode === "default" ? "Dark" : "Light"}
+		</Button>
+	);
+};
