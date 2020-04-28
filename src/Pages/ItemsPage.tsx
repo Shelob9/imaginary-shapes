@@ -1,10 +1,8 @@
 import React from "react";
 import { UserSession } from "blockstack";
-import useBlockStackSavedItems from "../useBlockStackSavedItems";
 import { useHistory } from "react-router-dom";
 import { SavedItem } from "../sorter/types";
-import ItemList from "../TodoItem/ItemList";
-import { New } from "../TodoItem/New";
+import { Box } from "theme-ui";
 import { ItemsContext } from "../ItemsContext";
 import SortedItems from "../SortedItems";
 const LoadingIndicator = (props: { isLoading: boolean }) =>
@@ -17,10 +15,10 @@ export default function ItemsPage() {
 		addItem,
 		activeItem,
 		saveNewItem,
-		updateItem,
-		items,
-		setActiveItemId,
+		isLoading,
+		isSaving,
 		activeItemId,
+		hasChanged,
 	} = React.useContext(ItemsContext);
 	const history = useHistory();
 
@@ -37,14 +35,17 @@ export default function ItemsPage() {
 		} else {
 			history.push(`/items`);
 		}
-	}, [activeItemId]);
+	}, [activeItemId, history]);
 
 	if (activeItem) {
 		return <div>{activeItem.id}</div>;
 	}
 	return (
-		<div>
-			<SortedItems />
-		</div>
+		<Box>
+			<LoadingIndicator isLoading={isLoading} />
+			<SavingIndicator isSaving={isSaving} />
+			{hasChanged ? <div>Has changed</div> : <div>Has not changed</div>}
+			<SortedItems lock={isSaving || isLoading} />
+		</Box>
 	);
 }

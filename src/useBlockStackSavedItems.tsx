@@ -19,9 +19,9 @@ export default function useBlockStackSavedItems(
 		updateItems,
 		updateItem,
 	} = useSavedItems([]);
-	const activeItem = React.useMemo<SavedItem | undefined>(() => {
-		return activeItemId ? getItemById(activeItemId) : undefined;
-	}, [activeItemId, items]);
+	const activeItem = activeItemId ? getItemById(activeItemId) : undefined;
+
+	const firstItems = React.useRef<savedItemsCollection>();
 
 	const fileName = `todoItems_v1.json`;
 
@@ -65,7 +65,6 @@ export default function useBlockStackSavedItems(
 				.getFile(fileName, options)
 				.then((file: string | undefined) => {
 					const items = JSON.parse(file || "[]");
-					console.log(items, file);
 					updateItems(items);
 				})
 				.catch((e) => {
@@ -78,10 +77,7 @@ export default function useBlockStackSavedItems(
 				});
 		});
 	};
-	//Call once to set items
-	React.useEffect(() => {
-		getItems();
-	}, []);
+
 	return {
 		getItemById,
 		addItem,
@@ -95,5 +91,7 @@ export default function useBlockStackSavedItems(
 		items,
 		saveNewItem,
 		saveItem,
+		firstItems,
+		getItems,
 	};
 }

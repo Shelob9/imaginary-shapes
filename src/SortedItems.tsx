@@ -5,7 +5,6 @@ import { isImportant, isFun, isUrgent } from "./sorter/is";
 import { Grid, Box, Styled, Card, Text, Label } from "theme-ui";
 import { savedItemsCollection, SavedItem } from "./sorter/types";
 import Emoji from "react-emoji-render";
-import useItem from "./TodoItem/useItem";
 
 const Thumb = (props: { isUp: true | false }) => {
 	return (
@@ -26,20 +25,28 @@ const ThumbToggle = (props: {
 		</Label>
 	</Box>
 );
-const OneItem = (props: { item: SavedItem }) => {
+const OneItem = (props: { item: SavedItem; lock: boolean }) => {
 	const { updateItem } = React.useContext(ItemsContext);
 	const { item } = props;
-	const onToggleFun = () => {
-		updateItem({ ...item, fun: !isFun(item) ? 10 : 0 });
-	};
 
-	const onToggleUrgent = () => {
-		updateItem({ ...item, urgency: !isUrgent(item) ? 10 : 0 });
-	};
+	const noChange = () => {};
+	const onToggleFun = props.lock
+		? noChange
+		: () => {
+				updateItem({ ...item, fun: !isFun(item) ? 10 : 0 });
+		  };
 
-	const onToggleImportant = () => {
-		updateItem({ ...item, importance: !isImportant(item) ? 10 : 0 });
-	};
+	const onToggleUrgent = props.lock
+		? noChange
+		: () => {
+				updateItem({ ...item, urgency: !isUrgent(item) ? 10 : 0 });
+		  };
+
+	const onToggleImportant = props.lock
+		? noChange
+		: () => {
+				updateItem({ ...item, importance: !isImportant(item) ? 10 : 0 });
+		  };
 
 	return (
 		<Card
@@ -62,10 +69,10 @@ const OneItem = (props: { item: SavedItem }) => {
 	);
 };
 
-const ItemsList = (props: { items: savedItemsCollection }) => (
+const ItemsList = (props: { items: savedItemsCollection; lock: boolean }) => (
 	<React.Fragment>
 		{props.items.map((item: SavedItem) => (
-			<OneItem key={item.title} item={item} />
+			<OneItem key={item.title} item={item} lock={props.lock} />
 		))}
 	</React.Fragment>
 );
@@ -87,7 +94,7 @@ function useQuadrants() {
 		bottomRight: bottomRight as savedItemsCollection,
 	};
 }
-export default function () {
+export default function (props: { lock: boolean }) {
 	const {
 		topLeft, //Urgent and important
 		topRight, //Important not urgent
@@ -99,21 +106,21 @@ export default function () {
 			<Grid>
 				<Box p={2}>
 					<Styled.h3>Urgent & Important</Styled.h3>
-					<ItemsList items={topLeft} />
+					<ItemsList items={topLeft} lock={props.lock} />
 				</Box>
 				<Box p={2}>
 					<Styled.h3>Important, Not Urgent</Styled.h3>
-					<ItemsList items={topRight} />
+					<ItemsList items={topRight} lock={props.lock} />
 				</Box>
 			</Grid>
 			<Grid>
 				<Box p={2}>
 					<Styled.h3>Urgent, not important</Styled.h3>
-					<ItemsList items={bottomLeft} />
+					<ItemsList items={bottomLeft} lock={props.lock} />
 				</Box>
 				<Box p={2}>
 					<Styled.h3>Not urgent or important</Styled.h3>
-					<ItemsList items={bottomRight} />
+					<ItemsList items={bottomRight} lock={props.lock} />
 				</Box>
 			</Grid>
 		</Grid>
