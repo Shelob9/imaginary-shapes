@@ -6,7 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import ItemsList from "./Widgets/ItemsList";
 import { Layout } from "./Layout";
 import Header from "./Widgets/Header";
-import { ItemsProvider, ItemsContext } from "./ItemsContext";
+import { ItemsProvider } from "./ItemsContext";
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
 

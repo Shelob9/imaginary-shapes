@@ -1,10 +1,8 @@
 import React from "react";
-import { UserSession } from "blockstack";
-import useBlockStackSavedItems from "../useBlockStackSavedItems";
+
 import { useParams } from "react-router-dom";
 import { Edit } from "../TodoItem/Edit";
 import { ItemsContext } from "../ItemsContext";
-import { SavedItem } from "../sorter/types";
 
 const LoadingIndicator = (props: { isLoading: boolean }) =>
 	props.isLoading ? <div>Loading Spinner</div> : null;
@@ -26,12 +24,12 @@ export default function ItemPage() {
 	//Set active item ID from URL
 	React.useEffect(() => {
 		setActiveItemId(id);
-	}, [id]);
+	}, [id, setActiveItemId]);
 
 	//Get the active item
 	const initialItem = React.useMemo(() => {
 		return getItemById(activeItemId);
-	}, [activeItemId, items]);
+	}, [activeItemId, items, getItemById]);
 
 	return React.useMemo(
 		() => (
