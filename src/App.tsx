@@ -18,26 +18,22 @@ const Routes = (props: {
 	handleSignOut: () => void;
 	userSession: UserSession;
 }) => {
-	const { items } = React.useContext(ItemsContext);
-	return React.useMemo(
-		() => (
-			<Switch>
-				<Route path="/profile">
-					<Profile
-						userSession={props.userSession}
-						handleSignOut={props.handleSignOut}
-					/>
-				</Route>
-				<Route path="/items/:id">
-					<ItemPage />
-				</Route>
-				<Route path="/items">
-					<ItemsPage />
-				</Route>
-				<Route path="/">Home Page</Route>
-			</Switch>
-		),
-		[items]
+	return (
+		<Switch>
+			<Route path="/profile">
+				<Profile
+					userSession={props.userSession}
+					handleSignOut={props.handleSignOut}
+				/>
+			</Route>
+			<Route path="/items/:id">
+				<ItemPage />
+			</Route>
+			<Route path="/items">
+				<ItemsPage />
+			</Route>
+			<Route path="/">Home Page</Route>
+		</Switch>
 	);
 };
 
