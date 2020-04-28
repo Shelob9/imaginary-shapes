@@ -4,11 +4,6 @@ import { useParams } from "react-router-dom";
 import { Edit } from "../TodoItem/Edit";
 import { ItemsContext } from "../ItemsContext";
 
-const LoadingIndicator = (props: { isLoading: boolean }) =>
-	props.isLoading ? <div>Loading Spinner</div> : null;
-const SavingIndicator = (props: { isSaving: boolean }) =>
-	props.isSaving ? <div>Saving Spinner</div> : null;
-
 export default function ItemPage() {
 	const {
 		activeItemId,
@@ -18,6 +13,8 @@ export default function ItemPage() {
 		isLoading,
 		isSaving,
 		items,
+		LoadingIndicator,
+		SavingIndicator,
 	} = React.useContext(ItemsContext);
 	let { id } = useParams();
 

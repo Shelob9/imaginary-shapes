@@ -1,14 +1,9 @@
 import React from "react";
-import { UserSession } from "blockstack";
 import { useHistory } from "react-router-dom";
 import { SavedItem } from "../sorter/types";
 import { Box } from "theme-ui";
 import { ItemsContext } from "../ItemsContext";
 import SortedItems from "../SortedItems";
-const LoadingIndicator = (props: { isLoading: boolean }) =>
-	props.isLoading ? <div>Loading Spinner</div> : null;
-const SavingIndicator = (props: { isSaving: boolean }) =>
-	props.isSaving ? <div>Saving Spinner</div> : null;
 
 export default function ItemsPage() {
 	const {
@@ -19,6 +14,8 @@ export default function ItemsPage() {
 		isSaving,
 		activeItemId,
 		hasChanged,
+		LoadingIndicator,
+		SavingIndicator,
 	} = React.useContext(ItemsContext);
 	const history = useHistory();
 
