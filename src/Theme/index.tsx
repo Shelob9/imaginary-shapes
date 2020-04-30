@@ -6,8 +6,13 @@ export function A(props: { to: string; children: string; title?: string }) {
 	const history = useHistory();
 
 	const onClick = (e: React.ChangeEvent<any>) => {
-		e.preventDefault();
-		history.push(props.to);
+		if (
+			"https://" !== props.to.substr(0, 8) ||
+			"http://" !== props.to.substr(0, 7)
+		) {
+			e.preventDefault();
+			history.push(props.to);
+		}
 	};
 
 	return (

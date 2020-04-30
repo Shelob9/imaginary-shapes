@@ -2,7 +2,7 @@
 import { jsx, Button } from "theme-ui";
 import UserSessionContext from "../UserSessionProvider";
 import { useContext } from "react";
-export default function () {
+export default function (props: { children?: any }) {
 	const { handleSignOut, isLoggedIn, handleSignIn } = useContext(
 		UserSessionContext
 	);
@@ -14,5 +14,9 @@ export default function () {
 			handleSignIn();
 		}
 	};
-	return <Button onClick={onClick}>{isLoggedIn ? "Log Out" : "Log In"}</Button>;
+	return (
+		<Button onClick={onClick}>
+			{props.children ? props.children : isLoggedIn ? "Log Out" : "Log In"}
+		</Button>
+	);
 }
