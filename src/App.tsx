@@ -9,6 +9,7 @@ import { ItemsProvider } from "./ItemsContext";
 import UserSessionContext, { UserSessionProvider } from "./UserSessionProvider";
 import DragAndDrop from "./DragAndDrop/DragAndDrop";
 import initialData from "./DragAndDrop/initial-data";
+import { dragAndDropState } from "./DragAndDrop/types";
 
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
@@ -30,7 +31,13 @@ const Routes = () => {
 						<ItemsPage />
 					</Route>
 					<Route path="/test">
-						<DragAndDrop initialData={initialData} />
+						<DragAndDrop
+							initialData={initialData}
+							stateMiddleWare={(update: dragAndDropState) => {
+								console.log(update);
+								return update;
+							}}
+						/>
 					</Route>
 					<Route path="/">Home Page</Route>
 				</React.Fragment>

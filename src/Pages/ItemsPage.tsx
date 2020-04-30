@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { SavedItem } from "../sorter/types";
 import { Box } from "theme-ui";
 import { ItemsContext } from "../ItemsContext";
-import SortedItems from "../SortedItems";
+import SortedItems, { useQuadrants } from "../SortedItems";
 
 export default function ItemsPage() {
 	const {
@@ -26,6 +26,14 @@ export default function ItemsPage() {
 		});
 	};
 
+	const {
+		topLeft, //Urgent and important
+		topRight, //Important not urgent
+		bottomLeft, //Urgent, not important
+		bottomRight, //Not urgent or important
+		asDndState,
+	} = useQuadrants();
+
 	React.useEffect(() => {
 		if (activeItemId) {
 			history.push(`/items/${activeItemId}`);
@@ -37,6 +45,7 @@ export default function ItemsPage() {
 	if (activeItem) {
 		return <div>{activeItem.id}</div>;
 	}
+	console.log(asDndState());
 	return (
 		<Box>
 			<LoadingIndicator isLoading={isLoading} />

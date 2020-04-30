@@ -4,8 +4,8 @@ import { itemCollection } from "./types";
 describe("Importance", () => {
 	it("sorts by importance", () => {
 		const items = [
-			{ urgency: 1, importance: 7 },
-			{ urgency: 2, importance: 9 },
+			{ urgency: 1, importance: 7, id: "1" },
+			{ urgency: 2, importance: 9, id: "1" },
 		];
 		const r = importance(items);
 		expect(r).not.toEqual(null);
@@ -18,9 +18,9 @@ describe("Importance", () => {
 
 	it("Removes unimportant", () => {
 		const items = [
-			{ urgency: 8, importance: 3 },
-			{ urgency: 1, importance: 7 },
-			{ urgency: 2, importance: 9 },
+			{ urgency: 8, importance: 3, id: "1" },
+			{ urgency: 1, importance: 7, id: "1" },
+			{ urgency: 2, importance: 9, id: "1" },
 		];
 		const r = importance(items);
 		expect(r).not.toEqual(null);
@@ -32,10 +32,10 @@ describe("Importance", () => {
 	it("Gives prefrence to fun", () => {
 		const items: itemCollection = [
 			// { urgency: 7, importance: 2, title: 'undefiend fun' },
-			{ urgency: 7, importance: 9, title: "NOT", fun: 5 },
-			{ urgency: 7, importance: 9, title: "FUN", fun: 10 },
-			{ urgency: 7, importance: 8, title: "NOT8" },
-			{ urgency: 7, importance: 8, title: "FUN8", fun: 1 },
+			{ urgency: 7, importance: 9, title: "NOT", fun: 5, id: "1" },
+			{ urgency: 7, importance: 9, title: "FUN", fun: 10, id: "1" },
+			{ urgency: 7, importance: 8, title: "NOT8", id: "1" },
+			{ urgency: 7, importance: 8, title: "FUN8", fun: 1, id: "1" },
 		];
 
 		const urgentItems = importance(items);

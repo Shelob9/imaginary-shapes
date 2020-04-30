@@ -1,7 +1,9 @@
-import { itemCollection } from "./types";
+import { savedItemsCollection } from "./types";
 import { importantOnly, importantanceSort } from "./sorters";
 
-export default function importance(items: itemCollection): itemCollection {
+export default function importance(
+	items: savedItemsCollection
+): savedItemsCollection {
 	let results = importantOnly(items);
 	if (null !== results) {
 		importantanceSort(results);

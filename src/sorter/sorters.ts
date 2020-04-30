@@ -1,19 +1,19 @@
-import { itemCollection, Item } from "./types";
+import { savedItemsCollection, SavedItem } from "./types";
 
 function onlyGreater(
-	items: itemCollection,
+	items: savedItemsCollection,
 	key: "urgency" | "importance",
 	than: number
 ) {
-	return items.filter((item: Item) => item[key] >= than);
+	return items.filter((item: SavedItem) => item[key] >= than);
 }
 
-function sortBy(items: itemCollection, key: "urgency" | "importance") {
-	return items.sort((a: Item, b: Item) => (a[key] < b[key] ? 1 : -1));
+function sortBy(items: savedItemsCollection, key: "urgency" | "importance") {
+	return items.sort((a: SavedItem, b: SavedItem) => (a[key] < b[key] ? 1 : -1));
 }
 
-function funSort(items: itemCollection) {
-	return items.sort((a: Item, b: Item) => {
+function funSort(items: savedItemsCollection) {
+	return items.sort((a: SavedItem, b: SavedItem) => {
 		if (!a.fun && !b.fun) {
 			return 0;
 		}
@@ -29,18 +29,18 @@ function funSort(items: itemCollection) {
 	});
 }
 
-function urgentOnly(items: itemCollection): itemCollection {
+function urgentOnly(items: savedItemsCollection): savedItemsCollection {
 	return onlyGreater(items, "urgency", 5);
 }
 
-function importantOnly(items: itemCollection): itemCollection {
+function importantOnly(items: savedItemsCollection): savedItemsCollection {
 	return onlyGreater(items, "importance", 5);
 }
-function importantanceSort(items: itemCollection): itemCollection {
+function importantanceSort(items: savedItemsCollection): savedItemsCollection {
 	return sortBy(funSort(items), "importance");
 }
 
-function urgencySort(items: itemCollection): itemCollection {
+function urgencySort(items: savedItemsCollection): savedItemsCollection {
 	return sortBy(funSort(items), "urgency");
 }
 

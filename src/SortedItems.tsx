@@ -5,6 +5,7 @@ import { isImportant, isFun, isUrgent } from "./sorter/is";
 import { Grid, Box, Styled, Card, Text, Label } from "theme-ui";
 import { savedItemsCollection, SavedItem } from "./sorter/types";
 import Emoji from "react-emoji-render";
+import { dragAndDropState } from "./DragAndDrop/types";
 
 const Thumb = (props: { isUp: true | false }) => {
 	return (
@@ -77,7 +78,7 @@ const ItemsList = (props: { items: savedItemsCollection; lock: boolean }) => (
 	</React.Fragment>
 );
 
-function useQuadrants() {
+export function useQuadrants() {
 	const { items } = React.useContext(ItemsContext);
 
 	const {
@@ -87,11 +88,62 @@ function useQuadrants() {
 		bottomRight, //Not urgent or important
 	} = quadrants(items);
 
+	const asDndState = (): dragAndDropState => {
+		let _items = {};
+		items.forEach((item: SavedItem) => {
+			_items[item.id] = {
+				id: item.id,
+				content: item.title,
+			};
+		});
+
+		const columns = {
+			topLeft: {
+				id: "topLeft",
+				title: "Top Left",
+				itemIds:
+					topLeft && !topLeft.length
+						? []
+						: topLeft.map((item: SavedItem) => item.id),
+			},
+			topRight: {
+				id: "topRight",
+				title: "Top Right",
+				itemIds:
+					topRight && !topRight.length
+						? []
+						: topRight.map((item: SavedItem) => item.id),
+			},
+			bottomLeft: {
+				id: "bottomLeft",
+				title: "Bottom Left",
+				itemIds:
+					bottomLeft && !bottomLeft.length
+						? []
+						: bottomLeft.map((item: SavedItem) => item.id),
+			},
+			bottomRight: {
+				id: "bottomRight",
+				title: "Bottom Right",
+				itemIds:
+					bottomRight && !bottomRight.length
+						? []
+						: bottomRight.map((item: SavedItem) => item.id),
+			},
+		};
+
+		return {
+			items: _items,
+			columns,
+			columnOrder: ["topLeft", "topRight", "bottomLeft", "bottomRight"],
+		};
+	};
 	return {
 		topLeft: topLeft as savedItemsCollection,
 		topRight: topRight as savedItemsCollection,
 		bottomLeft: bottomLeft as savedItemsCollection,
 		bottomRight: bottomRight as savedItemsCollection,
+		asDndState,
 	};
 }
 export default function (props: { lock: boolean }) {

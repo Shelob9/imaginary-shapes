@@ -1,6 +1,9 @@
-import { Item, itemCollection } from "./types";
+import { Item, savedItemsCollection, SavedItem } from "./types";
 
-function findByTitle(title: string, items: itemCollection): Item | null {
+function findByTitle(
+	title: string,
+	items: savedItemsCollection
+): SavedItem | null {
 	const result = items.find((i: Item) => title === i.title);
 	return result ? result : null;
 }
@@ -12,9 +15,9 @@ function findByTitle(title: string, items: itemCollection): Item | null {
  * @param collectionTwo
  */
 function difference(
-	collectionOne: itemCollection,
-	collectionTwo: itemCollection
-): itemCollection | null {
+	collectionOne: savedItemsCollection,
+	collectionTwo: savedItemsCollection
+): savedItemsCollection | null {
 	const result = collectionOne.filter((x) => !collectionTwo.includes(x));
 	return result ? result : null;
 }
@@ -27,9 +30,9 @@ function difference(
  * @param collectionTwo
  */
 function itersection(
-	collectionOne: itemCollection | null,
-	collectionTwo: itemCollection | null
-): itemCollection | null {
+	collectionOne: savedItemsCollection | null,
+	collectionTwo: savedItemsCollection | null
+): savedItemsCollection | null {
 	if (collectionOne === null && collectionTwo === null) {
 		return null;
 	}

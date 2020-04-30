@@ -1,14 +1,14 @@
-import { itemCollection, savedItemsCollection } from "./types";
+import { savedItemsCollection } from "./types";
 import { importantOnly, urgentOnly } from "./sorters";
 import { itersection, difference } from "./find";
-type quadrant = itemCollection | savedItemsCollection | null;
+type quadrant = savedItemsCollection | null;
 type quadrantsType = {
 	topLeft: quadrant;
 	topRight: quadrant;
 	bottomLeft: quadrant;
 	bottomRight: quadrant;
 };
-export default function quadrants(items: itemCollection): quadrantsType {
+export default function quadrants(items: savedItemsCollection): quadrantsType {
 	const urgent = urgentOnly(items);
 	const important = importantOnly(items);
 	const topLeft = itersection(urgent, important);

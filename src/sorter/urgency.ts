@@ -1,8 +1,10 @@
-import { itemCollection } from "./types";
+import { savedItemsCollection } from "./types";
 
 import { urgentOnly, importantanceSort, urgencySort } from "./sorters";
 
-export default function urgency(items: itemCollection): itemCollection {
+export default function urgency(
+	items: savedItemsCollection
+): savedItemsCollection {
 	let results = urgentOnly(items);
 	if (null !== results) {
 		urgencySort(results);
