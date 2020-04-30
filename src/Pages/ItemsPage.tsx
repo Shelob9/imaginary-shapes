@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { SavedItem } from "../sorter/types";
-import { Box } from "theme-ui";
+import { Box, Button } from "theme-ui";
 import { ItemsContext } from "../ItemsContext";
 import SortedItems from "../SortedItems";
 
@@ -16,18 +16,12 @@ export default function ItemsPage() {
 		hasChanged,
 		LoadingIndicator,
 		SavingIndicator,
+		saveItems,
 	} = React.useContext(ItemsContext);
 	const history = useHistory();
 
-	const onSave = (item: SavedItem) => {
-		saveNewItem(item).then(() => {
-			addItem(item);
-			history.push(`/items/${item.id}`);
-		});
-	};
-
 	React.useEffect(() => {
-		if (activeItemId) {
+		if (activeItemId && "string" === typeof activeItemId) {
 			history.push(`/items/${activeItemId}`);
 		} else {
 			history.push(`/items`);
@@ -41,6 +35,7 @@ export default function ItemsPage() {
 		<Box>
 			<LoadingIndicator />
 			<SavingIndicator />
+			{!isSaving && !isLoading && <Button onClick={saveItems}>Save</Button>}
 			{hasChanged ? <div>Has changed</div> : <div>Has not changed</div>}
 			<SortedItems lock={isSaving || isLoading} />
 		</Box>
