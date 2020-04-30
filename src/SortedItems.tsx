@@ -6,7 +6,7 @@ import { Grid, Box, Styled, Card, Text, Label } from "theme-ui";
 import { savedItemsCollection, SavedItem } from "./sorter/types";
 import Emoji from "react-emoji-render";
 import { dragAndDropState } from "./DragAndDrop/types";
-import DragAndDrop from "./DragAndDrop/DragAndDrop";
+import DragAndDrop, { locationChange } from "./DragAndDrop/DragAndDrop";
 
 const Thumb = (props: { isUp: true | false }) => {
 	return (
@@ -149,6 +149,7 @@ export function useQuadrants() {
 }
 export default function (props: { lock: boolean }) {
 	const { asDndState } = useQuadrants();
+
 	const {
 		items,
 		isLoading,
@@ -156,8 +157,13 @@ export default function (props: { lock: boolean }) {
 		SavingIndicator,
 	} = React.useContext(ItemsContext);
 
-	const middleware = (update: dragAndDropState) => {
-		console.log(update, items);
+	const currentState = asDndState();
+
+	const middleware = (
+		update: dragAndDropState,
+		locationChange: locationChange
+	) => {
+		console.log(update, locationChange);
 		return update;
 	};
 	return (
@@ -165,7 +171,7 @@ export default function (props: { lock: boolean }) {
 			<LoadingIndicator />
 			<SavingIndicator />
 			{!isLoading && (
-				<DragAndDrop initialData={asDndState()} stateMiddleWare={middleware} />
+				<DragAndDrop initialData={currentState} stateMiddleWare={middleware} />
 			)}
 		</React.Fragment>
 	);

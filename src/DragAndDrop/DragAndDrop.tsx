@@ -1,44 +1,56 @@
 import React from "react";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 import DragAndDropColumn from "./DragAndDropColumn";
 import { dragAndDropState } from "./types";
 import { Grid, Styled, Box } from "theme-ui";
+import { usePrevious } from "react-use";
 
-const Column = (props: {
-	state: dragAndDropState;
-	columnId: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
-}) => {
+type columnId = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+const Column = (props: { state: dragAndDropState; columnId: columnId }) => {
 	const column = props.state.columns[props.columnId];
 	const items = column.itemIds.map((itemId) => props.state.items[itemId]);
 
 	return <DragAndDropColumn key={column.id} column={column} items={items} />;
 };
+
+export type location = { droppableId: columnId; index: number };
+export type locationChange = {
+	previousQuadrant: location;
+	newQuadrant: location;
+	itemId: string;
+};
 class DragAndDrop extends React.Component<
 	{
 		initialData: dragAndDropState;
 		//Optionally call a function to modify state before updating
-		stateMiddleWare?: (update: dragAndDropState) => dragAndDropState;
+		stateMiddleWare?: (
+			update: dragAndDropState,
+			locationChange: locationChange
+		) => dragAndDropState;
 		ColumnOne?: (props: { children: any }) => Element;
 	},
 	dragAndDropState
 > {
 	constructor(props) {
 		super(props);
-		console.log(props.initialData);
 		this.state = props.initialData;
 	}
 
 	//IMPORTANT: ALWAYS use this to set state
-	updateState = (update: dragAndDropState) => {
+	updateState = (update: dragAndDropState, locationChange: locationChange) => {
 		if (this.props.stateMiddleWare) {
-			this.setState(this.props.stateMiddleWare(update));
+			this.setState(this.props.stateMiddleWare(update, locationChange));
 		} else {
 			this.setState(update);
 		}
 	};
 
-	onDragEnd = (result) => {
+	onDragEnd = (result: {
+		destination?: location;
+		source?: location;
+		draggableId: string;
+	}) => {
 		const { destination, source, draggableId } = result;
 
 		if (!destination) {
@@ -54,6 +66,12 @@ class DragAndDrop extends React.Component<
 
 		const start = this.state.columns[source.droppableId];
 		const finish = this.state.columns[destination.droppableId];
+
+		const lChange: locationChange = {
+			previousQuadrant: source,
+			newQuadrant: destination,
+			itemId: draggableId,
+		};
 
 		if (start === finish) {
 			const newitemIds = Array.from(start.itemIds);
@@ -73,7 +91,7 @@ class DragAndDrop extends React.Component<
 				},
 			};
 
-			this.updateState(newState);
+			this.updateState(newState, lChange);
 			return;
 		}
 
@@ -100,16 +118,10 @@ class DragAndDrop extends React.Component<
 				[newFinish.id]: newFinish,
 			},
 		};
-		this.updateState(newState);
+		this.updateState(newState, lChange);
 	};
 
 	render() {
-		const column = this.state.columns["bottomLeft"];
-		console.log(
-			column,
-			this.state.items,
-			column.itemIds.map((itemId) => this.state.items[itemId])
-		);
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
 				<Grid gap={2} columns={[2]}>

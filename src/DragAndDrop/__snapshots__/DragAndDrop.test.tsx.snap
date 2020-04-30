@@ -2,73 +2,131 @@
 
 exports[`DragAndDrop component  DragAndDrop matches snapshot 1`] = `
 <div>
-  <div>
-    <div>
-      <h3>
-        Top Left
-      </h3>
-      <div>
-        <div
-          data-rbd-draggable-context-id="0"
-          data-rbd-draggable-id="task-1"
+  <div
+    class="css-1tzn0b0"
+  >
+    <div
+      class="css-1dlftso"
+    >
+      <div
+        class="css-h9fdzh"
+      >
+        <h3
+          class="css-0"
         >
-          Take out the garbage
+          Urgent & Important
+        </h3>
+        <div>
+          <h3>
+            Top Left
+          </h3>
+          <div>
+            <div
+              data-rbd-draggable-context-id="0"
+              data-rbd-draggable-id="task-1"
+            >
+              <p>
+                {"id":"task-1","content":"Take out the garbage"}
+              </p>
+              Take out the garbage
+            </div>
+            <div
+              aria-describedby="rbd-hidden-text-0-hidden-text-0"
+              data-rbd-drag-handle-context-id="0"
+              data-rbd-drag-handle-draggable-id="task-2"
+              data-rbd-draggable-context-id="0"
+              data-rbd-draggable-id="task-2"
+              draggable="false"
+              role="button"
+              tabindex="0"
+            >
+              <p>
+                {"id":"task-2","content":"Watch my favorite show"}
+              </p>
+              Watch my favorite show
+            </div>
+            <div
+              aria-describedby="rbd-hidden-text-0-hidden-text-0"
+              data-rbd-drag-handle-context-id="0"
+              data-rbd-drag-handle-draggable-id="task-3"
+              data-rbd-draggable-context-id="0"
+              data-rbd-draggable-id="task-3"
+              draggable="false"
+              role="button"
+              tabindex="0"
+            >
+              <p>
+                {"id":"task-3","content":"Charge my phone"}
+              </p>
+              Charge my phone
+            </div>
+            <div
+              aria-describedby="rbd-hidden-text-0-hidden-text-0"
+              data-rbd-drag-handle-context-id="0"
+              data-rbd-drag-handle-draggable-id="task-4"
+              data-rbd-draggable-context-id="0"
+              data-rbd-draggable-id="task-4"
+              draggable="false"
+              role="button"
+              tabindex="0"
+            >
+              <p>
+                {"id":"task-4","content":"Cook dinner"}
+              </p>
+              Cook dinner
+            </div>
+          </div>
         </div>
-        <div
-          aria-describedby="rbd-hidden-text-0-hidden-text-0"
-          data-rbd-drag-handle-context-id="0"
-          data-rbd-drag-handle-draggable-id="task-2"
-          data-rbd-draggable-context-id="0"
-          data-rbd-draggable-id="task-2"
-          draggable="false"
-          role="button"
-          tabindex="0"
+      </div>
+      <div
+        class="css-h9fdzh"
+      >
+        <h3
+          class="css-0"
         >
-          Watch my favorite show
-        </div>
-        <div
-          aria-describedby="rbd-hidden-text-0-hidden-text-0"
-          data-rbd-drag-handle-context-id="0"
-          data-rbd-drag-handle-draggable-id="task-3"
-          data-rbd-draggable-context-id="0"
-          data-rbd-draggable-id="task-3"
-          draggable="false"
-          role="button"
-          tabindex="0"
-        >
-          Charge my phone
-        </div>
-        <div
-          aria-describedby="rbd-hidden-text-0-hidden-text-0"
-          data-rbd-drag-handle-context-id="0"
-          data-rbd-drag-handle-draggable-id="task-4"
-          data-rbd-draggable-context-id="0"
-          data-rbd-draggable-id="task-4"
-          draggable="false"
-          role="button"
-          tabindex="0"
-        >
-          Cook dinner
+          Important, Not Urgent
+        </h3>
+        <div>
+          <h3>
+            Top Right
+          </h3>
+          <div />
         </div>
       </div>
     </div>
-    <div>
-      <h3>
-        Top Right
-      </h3>
-      <div />
-    </div>
-    <div>
-      <h3>
-        Bottom Left
-      </h3>
-      <div />
-    </div>
-    <div>
-      <h3>
-        Bottom Right
-      </h3>
-      <div />
+    <div
+      class="css-1dlftso"
+    >
+      <div
+        class="css-h9fdzh"
+      >
+        <h3
+          class="css-0"
+        >
+          Urgent, not important
+        </h3>
+        <div>
+          <h3>
+            Bottom Left
+          </h3>
+          <div />
+        </div>
+      </div>
+      <div
+        class="css-h9fdzh"
+      >
+        <h3
+          class="css-0"
+        >
+          Not urgent or important
+        </h3>
+        <div>
+          <h3>
+            Bottom Right
+          </h3>
+          <div />
+        </div>
+      </div>
     </div>
   </div>
 </div>
