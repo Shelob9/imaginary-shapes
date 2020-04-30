@@ -18,7 +18,7 @@ export default function HomePage() {
 		>
 			<Flex>
 				<Box p={2} sx={{ flex: "1 1 auto" }}>
-					<Styled.h1>Imaginary Machines</Styled.h1>
+					<Styled.h1>Imaginary Shapes</Styled.h1>
 				</Box>
 				<Box p={2}>
 					{!isLoggedIn ? (

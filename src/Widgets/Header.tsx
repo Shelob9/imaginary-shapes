@@ -9,7 +9,7 @@ export default function () {
 	return (
 		<Box as={"header"}>
 			<Styled.h1 sx={{ display: "inline", mr: 12 }}>
-				<A to={"/"}>Imaginary Machines</A>
+				<A to={"/"}>Imaginary Shapes</A>
 			</Styled.h1>
 			<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
 				<LoginOrLogout />
