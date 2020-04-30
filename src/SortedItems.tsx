@@ -6,6 +6,7 @@ import { Grid, Box, Styled, Card, Text, Label } from "theme-ui";
 import { savedItemsCollection, SavedItem } from "./sorter/types";
 import Emoji from "react-emoji-render";
 import { dragAndDropState } from "./DragAndDrop/types";
+import DragAndDrop from "./DragAndDrop/DragAndDrop";
 
 const Thumb = (props: { isUp: true | false }) => {
 	return (
@@ -102,7 +103,7 @@ export function useQuadrants() {
 				id: "topLeft",
 				title: "Top Left",
 				itemIds:
-					topLeft && !topLeft.length
+					!topLeft || !topLeft.length
 						? []
 						: topLeft.map((item: SavedItem) => item.id),
 			},
@@ -110,7 +111,7 @@ export function useQuadrants() {
 				id: "topRight",
 				title: "Top Right",
 				itemIds:
-					topRight && !topRight.length
+					!topRight || !topRight.length
 						? []
 						: topRight.map((item: SavedItem) => item.id),
 			},
@@ -118,7 +119,7 @@ export function useQuadrants() {
 				id: "bottomLeft",
 				title: "Bottom Left",
 				itemIds:
-					bottomLeft && !bottomLeft.length
+					!bottomLeft || !bottomLeft.length
 						? []
 						: bottomLeft.map((item: SavedItem) => item.id),
 			},
@@ -126,7 +127,7 @@ export function useQuadrants() {
 				id: "bottomRight",
 				title: "Bottom Right",
 				itemIds:
-					bottomRight && !bottomRight.length
+					!bottomRight || !bottomRight.length
 						? []
 						: bottomRight.map((item: SavedItem) => item.id),
 			},
@@ -147,34 +148,25 @@ export function useQuadrants() {
 	};
 }
 export default function (props: { lock: boolean }) {
+	const { asDndState } = useQuadrants();
 	const {
-		topLeft, //Urgent and important
-		topRight, //Important not urgent
-		bottomLeft, //Urgent, not important
-		bottomRight, //Not urgent or important
-	} = useQuadrants();
+		items,
+		isLoading,
+		LoadingIndicator,
+		SavingIndicator,
+	} = React.useContext(ItemsContext);
+
+	const middleware = (update: dragAndDropState) => {
+		console.log(update, items);
+		return update;
+	};
 	return (
-		<Grid gap={2} columns={[2]}>
-			<Grid>
-				<Box p={2}>
-					<Styled.h3>Urgent & Important</Styled.h3>
-					<ItemsList items={topLeft} lock={props.lock} />
-				</Box>
-				<Box p={2}>
-					<Styled.h3>Important, Not Urgent</Styled.h3>
-					<ItemsList items={topRight} lock={props.lock} />
-				</Box>
-			</Grid>
-			<Grid>
-				<Box p={2}>
-					<Styled.h3>Urgent, not important</Styled.h3>
-					<ItemsList items={bottomLeft} lock={props.lock} />
-				</Box>
-				<Box p={2}>
-					<Styled.h3>Not urgent or important</Styled.h3>
-					<ItemsList items={bottomRight} lock={props.lock} />
-				</Box>
-			</Grid>
-		</Grid>
+		<React.Fragment>
+			<LoadingIndicator />
+			<SavingIndicator />
+			{!isLoading && (
+				<DragAndDrop initialData={asDndState()} stateMiddleWare={middleware} />
+			)}
+		</React.Fragment>
 	);
 }

@@ -23,6 +23,7 @@ export default class DragAndDropItem extends React.Component<{
 						isDragging={snapshot.isDragging}
 						isDragDisabled={isDragDisabled}
 					>
+						<p>{JSON.stringify(this.props.item)}</p>
 						{this.props.item.content}
 					</div>
 				)}

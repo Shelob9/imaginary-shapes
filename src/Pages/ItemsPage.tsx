@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { SavedItem } from "../sorter/types";
 import { Box } from "theme-ui";
 import { ItemsContext } from "../ItemsContext";
-import SortedItems, { useQuadrants } from "../SortedItems";
+import SortedItems from "../SortedItems";
 
 export default function ItemsPage() {
 	const {
@@ -26,14 +26,6 @@ export default function ItemsPage() {
 		});
 	};
 
-	const {
-		topLeft, //Urgent and important
-		topRight, //Important not urgent
-		bottomLeft, //Urgent, not important
-		bottomRight, //Not urgent or important
-		asDndState,
-	} = useQuadrants();
-
 	React.useEffect(() => {
 		if (activeItemId) {
 			history.push(`/items/${activeItemId}`);
@@ -45,11 +37,10 @@ export default function ItemsPage() {
 	if (activeItem) {
 		return <div>{activeItem.id}</div>;
 	}
-	console.log(asDndState());
 	return (
 		<Box>
-			<LoadingIndicator isLoading={isLoading} />
-			<SavingIndicator isSaving={isSaving} />
+			<LoadingIndicator />
+			<SavingIndicator />
 			{hasChanged ? <div>Has changed</div> : <div>Has not changed</div>}
 			<SortedItems lock={isSaving || isLoading} />
 		</Box>

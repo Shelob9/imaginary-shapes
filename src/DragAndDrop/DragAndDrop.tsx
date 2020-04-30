@@ -3,17 +3,29 @@ import { DragDropContext } from "react-beautiful-dnd";
 
 import DragAndDropColumn from "./DragAndDropColumn";
 import { dragAndDropState } from "./types";
+import { Grid, Styled, Box } from "theme-ui";
 
+const Column = (props: {
+	state: dragAndDropState;
+	columnId: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+}) => {
+	const column = props.state.columns[props.columnId];
+	const items = column.itemIds.map((itemId) => props.state.items[itemId]);
+
+	return <DragAndDropColumn key={column.id} column={column} items={items} />;
+};
 class DragAndDrop extends React.Component<
 	{
 		initialData: dragAndDropState;
 		//Optionally call a function to modify state before updating
 		stateMiddleWare?: (update: dragAndDropState) => dragAndDropState;
+		ColumnOne?: (props: { children: any }) => Element;
 	},
 	dragAndDropState
 > {
 	constructor(props) {
 		super(props);
+		console.log(props.initialData);
 		this.state = props.initialData;
 	}
 
@@ -92,24 +104,36 @@ class DragAndDrop extends React.Component<
 	};
 
 	render() {
+		const column = this.state.columns["bottomLeft"];
+		console.log(
+			column,
+			this.state.items,
+			column.itemIds.map((itemId) => this.state.items[itemId])
+		);
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
-				<div>
-					{this.state.columnOrder.map((columnId) => {
-						const column = this.state.columns[columnId];
-						const items = column.itemIds.map(
-							(itemId) => this.state.items[itemId]
-						);
-
-						return (
-							<DragAndDropColumn
-								key={column.id}
-								column={column}
-								items={items}
-							/>
-						);
-					})}
-				</div>
+				<Grid gap={2} columns={[2]}>
+					<Grid>
+						<Box p={2}>
+							<Styled.h3>Urgent & Important</Styled.h3>
+							<Column columnId={"topLeft"} state={this.state} />
+						</Box>
+						<Box p={2}>
+							<Styled.h3>Important, Not Urgent</Styled.h3>
+							<Column columnId={"topRight"} state={this.state} />
+						</Box>
+					</Grid>
+					<Grid>
+						<Box p={2}>
+							<Styled.h3>Urgent, not important</Styled.h3>
+							<Column columnId={"bottomLeft"} state={this.state} />
+						</Box>
+						<Box p={2}>
+							<Styled.h3>Not urgent or important</Styled.h3>
+							<Column columnId={"bottomRight"} state={this.state} />
+						</Box>
+					</Grid>
+				</Grid>
 			</DragDropContext>
 		);
 	}

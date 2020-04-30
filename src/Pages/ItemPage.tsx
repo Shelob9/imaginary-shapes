@@ -31,8 +31,8 @@ export default function ItemPage() {
 	return React.useMemo(
 		() => (
 			<React.Fragment>
-				<LoadingIndicator isLoading={isLoading} />
-				<SavingIndicator isSaving={isSaving} />
+				<LoadingIndicator />
+				<SavingIndicator />
 				{initialItem ? (
 					<React.Fragment>
 						<Edit

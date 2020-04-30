@@ -17,8 +17,8 @@ type ItemsContextValue = {
 	saveNewItem: (newItem: SavedItem) => Promise<void>;
 	saveItem: (newItem: SavedItem) => Promise<void>;
 	hasChanged: boolean;
-	LoadingIndicator: (props: { isLoading: boolean }) => JSX.Element;
-	SavingIndicator: (props: { isSaving: boolean }) => JSX.Element;
+	LoadingIndicator: () => JSX.Element;
+	SavingIndicator: () => JSX.Element;
 };
 export const ItemsContext = React.createContext<ItemsContextValue>(
 	//@ts-ignore
@@ -47,10 +47,9 @@ export const ItemsProvider = (props: {
 
 	const hasChanged = false;
 
-	const LoadingIndicator = (props: { isLoading: boolean }) =>
-		props.isLoading ? <div>Loading Spinner</div> : null;
-	const SavingIndicator = (props: { isSaving: boolean }) =>
-		props.isSaving ? <div>Saving Spinner</div> : null;
+	const LoadingIndicator = () =>
+		isLoading ? <div>Loading Spinner</div> : null;
+	const SavingIndicator = () => (isSaving ? <div>Saving Spinner</div> : null);
 
 	return (
 		<ItemsContext.Provider
