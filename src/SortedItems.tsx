@@ -9,6 +9,7 @@ import {
 } from "./DragAndDrop/types";
 import DragAndDrop from "./DragAndDrop/DragAndDrop";
 import urgency from "./sorter/urgency";
+import { isImportant, isUrgent } from "./sorter/is";
 
 export function useQuadrants() {
 	const { items } = React.useContext(ItemsContext);
@@ -97,24 +98,29 @@ export const changeTo = (item: SavedItem, what: columnId): SavedItem => {
 		case "topLeft": {
 			return {
 				...item,
-				importance:
-					item.importance && item.importance >= 5 ? item.importance : 10,
-				urgency: item.urgency && item.urgency >= 5 ? item.urgency : 10,
+				importance: isImportant(item) ? item.importance : 10,
+				urgency: isUrgent(item) ? item.urgency : 10,
 			};
 		}
 		case "topRight": {
 			return {
 				...item,
-			};
-		}
-		case "bottomRight": {
-			return {
-				...item,
+				importance: isImportant(item) ? item.importance : 10,
+				urgency: !isUrgent(item) ? item.urgency : 4,
 			};
 		}
 		case "bottomLeft": {
 			return {
 				...item,
+				importance: !isImportant(item) ? item.importance : 0,
+				urgency: isUrgent(item) ? item.urgency : 7,
+			};
+		}
+		case "bottomRight": {
+			return {
+				...item,
+				importance: !isImportant(item) ? item.importance : 0,
+				urgency: !isUrgent(item) ? item.urgency : 0,
 			};
 		}
 		default:
@@ -125,8 +131,6 @@ export const reorderOnLocationChange = (
 	locationChange: locationChange,
 	quadrants: quadrantsType
 ): savedItemsCollection => {
-	const previousQuadrantId = locationChange.previousQuadrant.droppableId;
-	const newPreviousQuarantId = locationChange.newQuadrant.droppableId;
 	let update: savedItemsCollection = [];
 	if (isQuadrantChange(locationChange)) {
 	} else {

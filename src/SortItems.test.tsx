@@ -36,6 +36,23 @@ describe("changeTo", () => {
 		expect(
 			changeTo(
 				{
+					urgency: 1,
+					importance: 9,
+					title: "Time",
+					id: "times",
+				},
+				"topLeft"
+			)
+		).toEqual({
+			urgency: 10,
+			importance: 9,
+			title: "Time",
+			id: "times",
+		});
+
+		expect(
+			changeTo(
+				{
 					urgency: 8,
 					importance: 8,
 					title: "Time",
@@ -50,7 +67,7 @@ describe("changeTo", () => {
 			id: "times",
 		});
 	});
-	it.skip("makes topRight", () => {
+	it("makes topRight", () => {
 		expect(
 			changeTo(
 				{
@@ -59,10 +76,44 @@ describe("changeTo", () => {
 					title: "Time",
 					id: "times",
 				},
-				"topLeft"
+				"topRight"
 			)
 		).toEqual({
 			urgency: 2,
+			importance: 10,
+			title: "Time",
+			id: "times",
+		});
+
+		expect(
+			changeTo(
+				{
+					urgency: 3,
+					importance: 2,
+					title: "Time",
+					id: "times",
+				},
+				"topRight"
+			)
+		).toEqual({
+			urgency: 3,
+			importance: 10,
+			title: "Time",
+			id: "times",
+		});
+
+		expect(
+			changeTo(
+				{
+					urgency: 0,
+					importance: 2,
+					title: "Time",
+					id: "times",
+				},
+				"topRight"
+			)
+		).toEqual({
+			urgency: 0,
 			importance: 10,
 			title: "Time",
 			id: "times",
@@ -76,7 +127,7 @@ describe("changeTo", () => {
 					title: "Time",
 					id: "times",
 				},
-				"topLeft"
+				"topRight"
 			)
 		).toEqual({
 			urgency: 4,
@@ -84,8 +135,25 @@ describe("changeTo", () => {
 			title: "Time",
 			id: "times",
 		});
+
+		expect(
+			changeTo(
+				{
+					urgency: 7,
+					importance: 6,
+					title: "Time",
+					id: "times",
+				},
+				"topRight"
+			)
+		).toEqual({
+			urgency: 4,
+			importance: 6,
+			title: "Time",
+			id: "times",
+		});
 	});
-	it.skip("makes bottomRight", () => {
+	it("makes bottomRight", () => {
 		expect(
 			changeTo(
 				{
@@ -120,7 +188,7 @@ describe("changeTo", () => {
 			id: "times",
 		});
 	});
-	it.skip("makes bottomLeft", () => {
+	it("makes bottomLeft", () => {
 		expect(
 			changeTo(
 				{
@@ -149,7 +217,7 @@ describe("changeTo", () => {
 				"bottomLeft"
 			)
 		).toEqual({
-			urgency: 10,
+			urgency: 7,
 			importance: 3,
 			title: "Time",
 			id: "times",
