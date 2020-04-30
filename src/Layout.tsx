@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import { jsx, Box, Container } from "theme-ui";
+import { useContext } from "react";
+import UserSessionContext from "./UserSessionProvider";
 export function Layout(props: {
 	children: any;
 	Header: () => any;
 	Sidebar: () => any;
 }) {
 	const { Header, Sidebar } = props;
-
+	const { isLoggedIn } = useContext(UserSessionContext);
 	return (
 		<Container p={4}>
 			<Box
@@ -36,16 +38,19 @@ export function Layout(props: {
 							flexWrap: "wrap",
 						}}
 					>
-						<Box
-							as={"aside"}
-							sx={{
-								flexGrow: 1,
-								flexBasis: "sidebar",
-								minWidth: "300px",
-							}}
-						>
-							<Sidebar />
-						</Box>
+						{isLoggedIn && (
+							<Box
+								as={"aside"}
+								sx={{
+									flexGrow: 1,
+									flexBasis: "sidebar",
+									minWidth: "300px",
+								}}
+							>
+								<Sidebar />
+							</Box>
+						)}
+
 						<Box
 							as={"main"}
 							sx={{
@@ -64,7 +69,7 @@ export function Layout(props: {
 						width: "100%",
 					}}
 				>
-					Footer
+					The Footer
 				</Box>
 			</Box>
 		</Container>

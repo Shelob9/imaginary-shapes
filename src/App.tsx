@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import Signin from "./Signin";
 import { UserSession, AppConfig } from "blockstack";
 import { Switch, Route } from "react-router-dom";
 import ItemsList from "./Widgets/ItemsList";
@@ -17,6 +16,7 @@ const userSession = new UserSession({ appConfig: appConfig });
 //Lazy-loaded pages
 const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
 const ItemsPage = React.lazy(() => import("./Pages/ItemsPage"));
+const HomePage = React.lazy(() => import("./Pages/HomePage"));
 
 const Routes = () => {
 	const { isLoggedIn } = React.useContext(UserSessionContext);
@@ -42,7 +42,9 @@ const Routes = () => {
 							}}
 						/>
 					</Route>
-					<Route path="/">Home Page</Route>
+					<Route path="/">
+						<HomePage />
+					</Route>
 				</React.Fragment>
 			) : (
 				<Route path="/">Hi</Route>
@@ -60,7 +62,7 @@ function Main() {
 			Header={() => <Header />}
 		>
 			{!isLoggedIn ? (
-				<Signin />
+				<HomePage />
 			) : (
 				<React.Fragment>
 					<Routes />
