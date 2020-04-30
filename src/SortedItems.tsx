@@ -184,15 +184,17 @@ export const changeTo = (item: SavedItem, what: columnId): SavedItem => {
 export const reorderOnLocationChange = (
 	locationChange: locationChange,
 	items: savedItemsCollection,
-	getItemById: (id: string) => SavedItem | undefined
+	getItemById: (id: string) => SavedItem | undefined,
+	newQuadrantOrder: Array<string>
 ): savedItemsCollection => {
+	let newQuadrantId = locationChange.newQuadrant.droppableId;
 	let update: savedItemsCollection = [];
 	let item = getItemById(locationChange.itemId);
 	if (!item) {
 		return items;
 	}
 	if (isQuadrantChange(locationChange)) {
-		item = changeTo(item, locationChange.newQuadrant.droppableId);
+		item = changeTo(item, newQuadrantId);
 		update = items.map((i: SavedItem) => {
 			if (i.id === item.id) {
 				return item;
@@ -200,29 +202,42 @@ export const reorderOnLocationChange = (
 			return i;
 		});
 	} else {
-		const q = quadrants(items);
-		const qI = quadrants[locationChange.newQuadrant.droppableId];
-		if (isHigher(locationChange)) {
-		} else {
-		}
+		let quadrant = quadrants(items)[newQuadrantId];
+		let _quadrant: savedItemsCollection = [];
+		newQuadrantOrder.forEach((itemId: string, index) => {
+			let item = getItemById(itemId);
+			if (item) {
+				if ("topLeft" || "bottomLeft" === newQuadrantId) {
+					_quadrant.push({
+						...item,
+						urgency: quadrant[index].urgency,
+					});
+				} else {
+					_quadrant.push({
+						...item,
+						importance: quadrant[index].importance,
+					});
+				}
+			}
+		});
+		update = update.map((item: SavedItem) => {
+			let updateItem = _quadrant.find((i: SavedItem) => i.id === item.id);
+			return updateItem ?? item;
+		});
 	}
 	return update;
 };
 
 export default function (props: { lock: boolean }) {
-	const {
-		asDndState,
-		topLeft,
-		topRight,
-		bottomLeft,
-		bottomRight,
-	} = useQuadrants();
+	const { asDndState } = useQuadrants();
 
 	const {
 		isLoading,
 		LoadingIndicator,
 		SavingIndicator,
 		getItemById,
+		items,
+		updateItems,
 	} = React.useContext(ItemsContext);
 
 	const currentState = asDndState();
@@ -230,8 +245,18 @@ export default function (props: { lock: boolean }) {
 	const middleware = (
 		update: dragAndDropState,
 		locationChange: locationChange
-	) => {
-		console.log(update, locationChange);
+	): dragAndDropState => {
+		const quadrantId = locationChange.newQuadrant.droppableId;
+		let newQuadrantOrder = update.columns[quadrantId].itemIds;
+
+		let updated = reorderOnLocationChange(
+			locationChange,
+			items,
+			getItemById,
+			newQuadrantOrder
+		);
+
+		updateItems(updated);
 		return update;
 	};
 

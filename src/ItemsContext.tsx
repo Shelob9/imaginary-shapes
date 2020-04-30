@@ -14,6 +14,7 @@ type ItemsContextValue = {
 	isLoading: boolean;
 	saveItems: () => Promise<void>;
 	updateItem: (item: SavedItem) => void;
+	updateItems: (items: savedItemsCollection) => void;
 	items: savedItemsCollection;
 	saveNewItem: (newItem: SavedItem) => Promise<void>;
 	saveItem: (newItem: SavedItem) => Promise<void>;
@@ -43,6 +44,7 @@ export const ItemsProvider = (props: {
 		items,
 		saveNewItem,
 		saveItem,
+		updateItems,
 	} = useBlockStackSavedItems(props.intitalActiveItemId);
 
 	const hasChanged = false;
@@ -69,6 +71,7 @@ export const ItemsProvider = (props: {
 				hasChanged,
 				LoadingIndicator,
 				SavingIndicator,
+				updateItems,
 			}}
 		>
 			{props.children}

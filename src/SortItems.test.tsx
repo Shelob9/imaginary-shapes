@@ -249,7 +249,8 @@ describe("reorderOnLocationChange", () => {
 				itemId: "TR",
 			},
 			items,
-			getItemById
+			getItemById,
+			[]
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 
@@ -278,7 +279,8 @@ describe("reorderOnLocationChange", () => {
 				itemId: "BR",
 			},
 			items,
-			getItemById
+			getItemById,
+			[]
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.topRight.length).toBe(2);
@@ -307,7 +309,8 @@ describe("reorderOnLocationChange", () => {
 				itemId: "TR",
 			},
 			items,
-			getItemById
+			getItemById,
+			[]
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomRight.length).toBe(2);
@@ -336,7 +339,8 @@ describe("reorderOnLocationChange", () => {
 				itemId: "TR",
 			},
 			items,
-			getItemById
+			getItemById,
+			[]
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomLeft.length).toBe(1);
@@ -379,7 +383,8 @@ describe("reorderOnLocationChange", () => {
 				itemId: "TR",
 			},
 			items,
-			getItemById
+			getItemById,
+			["Not", "TR"]
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomLeft.length).toBe(2);
@@ -422,7 +427,8 @@ describe("reorderOnLocationChange", () => {
 				itemId: "TR",
 			},
 			items,
-			getItemById
+			getItemById,
+			["TR", "NOT"]
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomLeft.length).toBe(2);

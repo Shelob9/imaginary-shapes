@@ -95,6 +95,7 @@ export default function useBlockStackSavedItems(intitalActiveItemId?: string) {
 		isLoading,
 		saveItems,
 		updateItem,
+		updateItems,
 		items,
 		saveNewItem,
 		saveItem,
