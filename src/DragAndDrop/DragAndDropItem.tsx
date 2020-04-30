@@ -1,13 +1,19 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { dragAndDropItem } from "./types";
+import { ItemsContext } from "../ItemsContext";
+import { SavedItem } from "../sorter/types";
+import SingleItem from "../TodoItem/SingleItem";
 
 export default class DragAndDropItem extends React.Component<{
 	item: dragAndDropItem;
 	index: number;
+	render?: (props: { item: SavedItem }) => Element;
 }> {
+	static contextType = ItemsContext;
 	render() {
-		const isDragDisabled = this.props.item.id === "task-1";
+		const item = this.context.getItemById(this.props.item.id);
+		const isDragDisabled = false;
 		return (
 			<Draggable
 				draggableId={this.props.item.id}
@@ -23,8 +29,7 @@ export default class DragAndDropItem extends React.Component<{
 						isDragging={snapshot.isDragging}
 						isDragDisabled={isDragDisabled}
 					>
-						<p>{JSON.stringify(this.props.item)}</p>
-						{this.props.item.content}
+						<SingleItem item={item} lock={snapshot.isDragging} />
 					</div>
 				)}
 			</Draggable>

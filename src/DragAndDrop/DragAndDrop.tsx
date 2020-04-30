@@ -4,7 +4,6 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import DragAndDropColumn from "./DragAndDropColumn";
 import { dragAndDropState } from "./types";
 import { Grid, Styled, Box } from "theme-ui";
-import { usePrevious } from "react-use";
 
 type columnId = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 const Column = (props: { state: dragAndDropState; columnId: columnId }) => {

@@ -1,8 +1,7 @@
 import React from "react";
 import DragAndDropItem from "./DragAndDropItem";
 import { Droppable } from "react-beautiful-dnd";
-import { dragAndDropColumm, dragAndDropItems, dragAndDropItem } from "./types";
-
+import { dragAndDropColumm, dragAndDropItem } from "./types";
 class List extends React.Component<{ innerRef: React.Ref<any> }> {
 	render() {
 		return <div ref={this.props.innerRef}>{this.props.children}</div>;
