@@ -220,9 +220,9 @@ export const reorderOnLocationChange = (
 				}
 			}
 		});
-		update = update.map((item: SavedItem) => {
+		update = items.map((item: SavedItem) => {
 			let updateItem = _quadrant.find((i: SavedItem) => i.id === item.id);
-			return updateItem ?? item;
+			return updateItem ? updateItem : item;
 		});
 	}
 	return update;

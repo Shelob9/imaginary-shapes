@@ -29,7 +29,11 @@ export default class DragAndDropItem extends React.Component<{
 						isDragging={snapshot.isDragging}
 						isDragDisabled={isDragDisabled}
 					>
-						<SingleItem item={item} lock={snapshot.isDragging} />
+						{item ? (
+							<SingleItem item={item} lock={snapshot.isDragging} />
+						) : (
+							<p>{this.props.item.content}</p>
+						)}
 					</div>
 				)}
 			</Draggable>

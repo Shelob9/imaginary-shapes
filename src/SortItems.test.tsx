@@ -389,7 +389,7 @@ describe("reorderOnLocationChange", () => {
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomLeft.length).toBe(2);
 		expect(newItems.bottomLeft.find((i) => i.id === "TR")).toEqual({
-			urgency: 10,
+			urgency: 7,
 			importance: 3,
 			title: "Time",
 			id: "TR",
@@ -433,7 +433,7 @@ describe("reorderOnLocationChange", () => {
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomLeft.length).toBe(2);
 		expect(newItems.bottomLeft.find((i) => i.id === "TR")).toEqual({
-			urgency: 6,
+			urgency: 7,
 			importance: 3,
 			title: "Time",
 			id: "TR",
