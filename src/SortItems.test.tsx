@@ -348,6 +348,92 @@ describe("reorderOnLocationChange", () => {
 		});
 		expect(newItems.topRight.length).toBe(0);
 	});
+
+	test("moved up", () => {
+		const items = [
+			{
+				urgency: 7,
+				importance: 3,
+				title: "Time",
+				id: "TR",
+			},
+			{
+				urgency: 7,
+				importance: 4,
+				title: "No Time",
+				id: "Not",
+			},
+		];
+		expect(quadrants(items).bottomLeft.length).toEqual(2);
+
+		const reordered = reorderOnLocationChange(
+			{
+				previousQuadrant: {
+					index: 1,
+					droppableId: "bottomLeft",
+				},
+				newQuadrant: {
+					index: 2,
+					droppableId: "bottomLeft",
+				},
+				itemId: "TR",
+			},
+			items,
+			getItemById
+		);
+		const newItems: quadrantsType = quadrants(reordered);
+		expect(newItems.bottomLeft.length).toBe(2);
+		expect(newItems.bottomLeft.find((i) => i.id === "TR")).toEqual({
+			urgency: 10,
+			importance: 3,
+			title: "Time",
+			id: "TR",
+		});
+		expect(newItems.topRight.length).toBe(0);
+	});
+
+	test("moved down", () => {
+		const items = [
+			{
+				urgency: 7,
+				importance: 3,
+				title: "Time",
+				id: "TR",
+			},
+			{
+				urgency: 7,
+				importance: 4,
+				title: "No Time",
+				id: "Not",
+			},
+		];
+		expect(quadrants(items).bottomLeft.length).toEqual(2);
+
+		const reordered = reorderOnLocationChange(
+			{
+				previousQuadrant: {
+					index: 3,
+					droppableId: "bottomLeft",
+				},
+				newQuadrant: {
+					index: 5,
+					droppableId: "bottomLeft",
+				},
+				itemId: "TR",
+			},
+			items,
+			getItemById
+		);
+		const newItems: quadrantsType = quadrants(reordered);
+		expect(newItems.bottomLeft.length).toBe(2);
+		expect(newItems.bottomLeft.find((i) => i.id === "TR")).toEqual({
+			urgency: 6,
+			importance: 3,
+			title: "Time",
+			id: "TR",
+		});
+		expect(newItems.topRight.length).toBe(0);
+	});
 });
 
 describe("isQuadrantChange", () => {

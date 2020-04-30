@@ -8,9 +8,27 @@ import {
 	columnId,
 } from "./DragAndDrop/types";
 import DragAndDrop from "./DragAndDrop/DragAndDrop";
-import urgency from "./sorter/urgency";
 import { isImportant, isUrgent } from "./sorter/is";
+import { urgencySort, importantanceSort } from "./sorter/sorters";
 
+const sortedItemIds = (
+	quadrants: quadrantsType,
+	columnId: columnId,
+	by: "urgency" | "importance"
+) => {
+	let items = quadrants[columnId];
+	switch (by) {
+		case "urgency":
+			items = urgencySort(items);
+			break;
+
+		case "importance":
+		default:
+			items = importantanceSort(items);
+			break;
+	}
+	return items.map((item: SavedItem) => item.id);
+};
 export function useQuadrants() {
 	const { items } = React.useContext(ItemsContext);
 
@@ -37,7 +55,16 @@ export function useQuadrants() {
 				itemIds:
 					!topLeft || !topLeft.length
 						? []
-						: topLeft.map((item: SavedItem) => item.id),
+						: sortedItemIds(
+								{
+									topLeft,
+									topRight,
+									bottomLeft,
+									bottomRight,
+								},
+								"topLeft",
+								"urgency"
+						  ),
 			},
 			topRight: {
 				id: "topRight",
@@ -45,7 +72,16 @@ export function useQuadrants() {
 				itemIds:
 					!topRight || !topRight.length
 						? []
-						: topRight.map((item: SavedItem) => item.id),
+						: sortedItemIds(
+								{
+									topLeft,
+									topRight,
+									bottomLeft,
+									bottomRight,
+								},
+								"topRight",
+								"importance"
+						  ),
 			},
 			bottomLeft: {
 				id: "bottomLeft",
@@ -53,7 +89,16 @@ export function useQuadrants() {
 				itemIds:
 					!bottomLeft || !bottomLeft.length
 						? []
-						: bottomLeft.map((item: SavedItem) => item.id),
+						: sortedItemIds(
+								{
+									topLeft,
+									topRight,
+									bottomLeft,
+									bottomRight,
+								},
+								"bottomLeft",
+								"urgency"
+						  ),
 			},
 			bottomRight: {
 				id: "bottomRight",
@@ -61,7 +106,16 @@ export function useQuadrants() {
 				itemIds:
 					!bottomRight || !bottomRight.length
 						? []
-						: bottomRight.map((item: SavedItem) => item.id),
+						: sortedItemIds(
+								{
+									topLeft,
+									topRight,
+									bottomLeft,
+									bottomRight,
+								},
+								"bottomRight",
+								"importance"
+						  ),
 			},
 		};
 
