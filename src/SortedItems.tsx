@@ -129,11 +129,25 @@ export const changeTo = (item: SavedItem, what: columnId): SavedItem => {
 };
 export const reorderOnLocationChange = (
 	locationChange: locationChange,
-	quadrants: quadrantsType
+	items: savedItemsCollection,
+	getItemById: (id: string) => SavedItem | undefined
 ): savedItemsCollection => {
 	let update: savedItemsCollection = [];
+	let item = getItemById(locationChange.itemId);
+	if (!item) {
+		return items;
+	}
 	if (isQuadrantChange(locationChange)) {
+		item = changeTo(item, locationChange.newQuadrant.droppableId);
+		update = items.map((i: SavedItem) => {
+			if (i.id === item.id) {
+				return item;
+			}
+			return i;
+		});
 	} else {
+		const q = quadrants(items);
+		const qI = quadrants[locationChange.newQuadrant.droppableId];
 		if (isHigher(locationChange)) {
 		} else {
 		}

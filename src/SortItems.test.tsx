@@ -9,11 +9,6 @@ import {
 import quadrants, { quadrantsType } from "./sorter/quadrants";
 import { SavedItem } from "./sorter/types";
 
-const items: quadrantsType = quadrants([
-	{ urgency: 2, importance: 2, title: "NotUrgentAndNotImportant", id: "BR" },
-	{ urgency: 10, importance: 3, title: "UrgentNotImportant", id: "TR" },
-]);
-
 describe("changeTo", () => {
 	it("makes topLeft", () => {
 		expect(
@@ -225,7 +220,22 @@ describe("changeTo", () => {
 	});
 });
 describe("reorderOnLocationChange", () => {
-	test.skip("moved to topLeft", () => {
+	const getItemById = jest.fn((id: string) => {
+		return {
+			urgency: 7,
+			importance: 3,
+			title: "Time",
+			id,
+		};
+	});
+	const items = [
+		{ urgency: 2, importance: 2, title: "NotUrgentAndNotImportant", id: "BR" },
+		{ urgency: 4, importance: 9, title: "UrgentNotImportant", id: "TR" },
+	];
+	test("moved to topLeft", () => {
+		const getItemById = jest.fn((id: string) => {
+			return { urgency: 10, importance: 3, title: "UrgentNotImportant", id };
+		});
 		const reordered = reorderOnLocationChange(
 			{
 				previousQuadrant: {
@@ -238,9 +248,11 @@ describe("reorderOnLocationChange", () => {
 				},
 				itemId: "TR",
 			},
-			items
+			items,
+			getItemById
 		);
 		const newItems: quadrantsType = quadrants(reordered);
+
 		expect(newItems.topLeft.length).toBe(1);
 		expect(newItems.topLeft[0]).toEqual({
 			urgency: 10,
@@ -251,7 +263,8 @@ describe("reorderOnLocationChange", () => {
 
 		expect(newItems.topRight.length).toBe(0);
 	});
-	test.skip("moved to topRight", () => {
+	test("moved to topRight", () => {
+		expect(quadrants(items).topRight.length).toBe(1);
 		const reordered = reorderOnLocationChange(
 			{
 				previousQuadrant: {
@@ -264,22 +277,23 @@ describe("reorderOnLocationChange", () => {
 				},
 				itemId: "BR",
 			},
-			items
+			items,
+			getItemById
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.topRight.length).toBe(2);
 		expect(
 			newItems.topRight.find((item: SavedItem) => "BR" === item.id)
 		).toEqual({
-			urgency: 2,
+			urgency: 4,
 			importance: 10,
-			title: "NotUrgentAndNotImportant",
+			title: "Time",
 			id: "BR",
 		});
 		expect(newItems.bottomRight.length).toBe(0);
 	});
 
-	test.skip("moved to bottomRight", () => {
+	test("moved to bottomRight", () => {
 		const reordered = reorderOnLocationChange(
 			{
 				previousQuadrant: {
@@ -292,7 +306,8 @@ describe("reorderOnLocationChange", () => {
 				},
 				itemId: "TR",
 			},
-			items
+			items,
+			getItemById
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomRight.length).toBe(2);
@@ -301,13 +316,13 @@ describe("reorderOnLocationChange", () => {
 		).toEqual({
 			urgency: 0,
 			importance: 3,
-			title: "UrgentNotImportant",
+			title: "Time",
 			id: "TR",
 		});
 		expect(newItems.topRight.length).toBe(0);
 	});
 
-	test.skip("moved to bottomLeft", () => {
+	test("moved to bottomLeft", () => {
 		const reordered = reorderOnLocationChange(
 			{
 				previousQuadrant: {
@@ -320,14 +335,15 @@ describe("reorderOnLocationChange", () => {
 				},
 				itemId: "TR",
 			},
-			items
+			items,
+			getItemById
 		);
 		const newItems: quadrantsType = quadrants(reordered);
 		expect(newItems.bottomLeft.length).toBe(1);
 		expect(newItems.bottomLeft[0]).toEqual({
-			urgency: 10,
-			importance: 0,
-			title: "UrgentNotImportant",
+			urgency: 7,
+			importance: 3,
+			title: "Time",
 			id: "TR",
 		});
 		expect(newItems.topRight.length).toBe(0);
