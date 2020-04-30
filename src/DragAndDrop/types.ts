@@ -6,7 +6,6 @@ export type dragAndDropItems = { [key: string]: dragAndDropItem };
 
 export type dragAndDropColumm = {
 	id: string;
-	title: string;
 	itemIds: Array<string>;
 };
 export type dragAndDropState = {

@@ -4,6 +4,7 @@ import quadrants, { quadrantsType } from "./sorter/quadrants";
 import { savedItemsCollection, SavedItem } from "./sorter/types";
 import {
 	dragAndDropState,
+	//@typescript-eslint-ignore
 	locationChange,
 	columnId,
 } from "./DragAndDrop/types";

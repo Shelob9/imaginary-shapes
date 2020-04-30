@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Input, Label } from "theme-ui";
+import { jsx, Input, Label } from "theme-ui";
 import { ChangeEvent } from "react";
 
 type valueType = string | number;

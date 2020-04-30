@@ -15,7 +15,6 @@ export default class DragAndDropColumn extends React.Component<{
 	render() {
 		return (
 			<div>
-				<h3>{this.props.column.title}</h3>
 				<Droppable droppableId={this.props.column.id} type="TASK">
 					{(provided, snapshot) => (
 						<List

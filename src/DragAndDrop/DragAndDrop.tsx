@@ -20,7 +20,6 @@ class DragAndDrop extends React.Component<
 			update: dragAndDropState,
 			locationChange: locationChange
 		) => dragAndDropState;
-		ColumnOne?: (props: { children: any }) => Element;
 	},
 	dragAndDropState
 > {
