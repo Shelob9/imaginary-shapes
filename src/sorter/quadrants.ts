@@ -1,8 +1,8 @@
 import { savedItemsCollection } from "./types";
 import { importantOnly, urgentOnly } from "./sorters";
 import { itersection, difference } from "./find";
-type quadrant = savedItemsCollection | null;
-type quadrantsType = {
+export type quadrant = savedItemsCollection | null;
+export type quadrantsType = {
 	topLeft: quadrant;
 	topRight: quadrant;
 	bottomLeft: quadrant;

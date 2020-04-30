@@ -2,6 +2,7 @@ import React from "react";
 import { UserSession } from "blockstack";
 import useBlockStackSavedItems from "./useBlockStackSavedItems";
 import { SavedItem, savedItemsCollection } from "./sorter/types";
+import UserSessionContext from "./UserSessionProvider";
 
 type ItemsContextValue = {
 	getItemById: (itemId: string) => SavedItem | undefined;
@@ -26,7 +27,6 @@ export const ItemsContext = React.createContext<ItemsContextValue>(
 );
 
 export const ItemsProvider = (props: {
-	userSession: UserSession;
 	intitalActiveItemId?: string;
 	children: any;
 }) => {
@@ -43,7 +43,7 @@ export const ItemsProvider = (props: {
 		items,
 		saveNewItem,
 		saveItem,
-	} = useBlockStackSavedItems(props.userSession, props.intitalActiveItemId);
+	} = useBlockStackSavedItems(props.intitalActiveItemId);
 
 	const hasChanged = false;
 

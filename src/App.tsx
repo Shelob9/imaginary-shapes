@@ -24,6 +24,9 @@ const Routes = () => {
 		<Switch>
 			{isLoggedIn ? (
 				<React.Fragment>
+					<Route path="/roy">
+						<p>Hi Roy</p>
+					</Route>
 					<Route path="/items/:id">
 						<ItemPage />
 					</Route>
@@ -70,7 +73,7 @@ export default function App() {
 	return (
 		<Suspense fallback={"Loading"}>
 			<UserSessionProvider userSession={userSession}>
-				<ItemsProvider userSession={userSession}>
+				<ItemsProvider>
 					<Main />
 				</ItemsProvider>
 			</UserSessionProvider>

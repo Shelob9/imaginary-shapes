@@ -1,9 +1,14 @@
 import React from "react";
 import { ItemsContext } from "./ItemsContext";
-import quadrants from "./sorter/quadrants";
+import quadrants, { quadrantsType } from "./sorter/quadrants";
 import { savedItemsCollection, SavedItem } from "./sorter/types";
-import { dragAndDropState } from "./DragAndDrop/types";
-import DragAndDrop, { locationChange } from "./DragAndDrop/DragAndDrop";
+import {
+	dragAndDropState,
+	locationChange,
+	columnId,
+} from "./DragAndDrop/types";
+import DragAndDrop from "./DragAndDrop/DragAndDrop";
+import urgency from "./sorter/urgency";
 
 export function useQuadrants() {
 	const { items } = React.useContext(ItemsContext);
@@ -73,12 +78,80 @@ export function useQuadrants() {
 		asDndState,
 	};
 }
-export default function (props: { lock: boolean }) {
-	const { asDndState } = useQuadrants();
 
-	const { isLoading, LoadingIndicator, SavingIndicator } = React.useContext(
-		ItemsContext
+export const isQuadrantChange = (locationChange: locationChange) => {
+	return (
+		locationChange.previousQuadrant.droppableId !==
+		locationChange.newQuadrant.droppableId
 	);
+};
+
+export const isHigher = (locationChange: locationChange) => {
+	return (
+		locationChange.previousQuadrant.index <= locationChange.newQuadrant.index
+	);
+};
+
+export const changeTo = (item: SavedItem, what: columnId): SavedItem => {
+	switch (what) {
+		case "topLeft": {
+			return {
+				...item,
+				importance:
+					item.importance && item.importance >= 5 ? item.importance : 10,
+				urgency: item.urgency && item.urgency >= 5 ? item.urgency : 10,
+			};
+		}
+		case "topRight": {
+			return {
+				...item,
+			};
+		}
+		case "bottomRight": {
+			return {
+				...item,
+			};
+		}
+		case "bottomLeft": {
+			return {
+				...item,
+			};
+		}
+		default:
+			return item;
+	}
+};
+export const reorderOnLocationChange = (
+	locationChange: locationChange,
+	quadrants: quadrantsType
+): savedItemsCollection => {
+	const previousQuadrantId = locationChange.previousQuadrant.droppableId;
+	const newPreviousQuarantId = locationChange.newQuadrant.droppableId;
+	let update: savedItemsCollection = [];
+	if (isQuadrantChange(locationChange)) {
+	} else {
+		if (isHigher(locationChange)) {
+		} else {
+		}
+	}
+	return update;
+};
+
+export default function (props: { lock: boolean }) {
+	const {
+		asDndState,
+		topLeft,
+		topRight,
+		bottomLeft,
+		bottomRight,
+	} = useQuadrants();
+
+	const {
+		isLoading,
+		LoadingIndicator,
+		SavingIndicator,
+		getItemById,
+	} = React.useContext(ItemsContext);
 
 	const currentState = asDndState();
 
@@ -89,6 +162,7 @@ export default function (props: { lock: boolean }) {
 		console.log(update, locationChange);
 		return update;
 	};
+
 	return (
 		<React.Fragment>
 			<LoadingIndicator />

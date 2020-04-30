@@ -1,11 +1,10 @@
 import React from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 
 import DragAndDropColumn from "./DragAndDropColumn";
-import { dragAndDropState } from "./types";
+import { dragAndDropState, columnId, locationChange, location } from "./types";
 import { Grid, Styled, Box } from "theme-ui";
 
-type columnId = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 const Column = (props: { state: dragAndDropState; columnId: columnId }) => {
 	const column = props.state.columns[props.columnId];
 	const items = column.itemIds.map((itemId) => props.state.items[itemId]);
@@ -13,12 +12,6 @@ const Column = (props: { state: dragAndDropState; columnId: columnId }) => {
 	return <DragAndDropColumn key={column.id} column={column} items={items} />;
 };
 
-export type location = { droppableId: columnId; index: number };
-export type locationChange = {
-	previousQuadrant: location;
-	newQuadrant: location;
-	itemId: string;
-};
 class DragAndDrop extends React.Component<
 	{
 		initialData: dragAndDropState;

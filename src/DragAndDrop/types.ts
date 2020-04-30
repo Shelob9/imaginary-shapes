@@ -14,3 +14,11 @@ export type dragAndDropState = {
 	columns: { [key: string]: dragAndDropColumm };
 	columnOrder: Array<string>;
 };
+
+export type columnId = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+export type location = { droppableId: columnId; index: number };
+export type locationChange = {
+	previousQuadrant: location;
+	newQuadrant: location;
+	itemId: string;
+};

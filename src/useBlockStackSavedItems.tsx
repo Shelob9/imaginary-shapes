@@ -1,13 +1,12 @@
-import { UserSession } from "blockstack";
 import React from "react";
 import useSavedItems from "./TodoItem/useSavedItems";
 import { SavedItem, savedItemsCollection } from "./sorter/types";
 import { useEffectOnce } from "react-use";
+import UserSessionContext from "./UserSessionProvider";
 
-export default function useBlockStackSavedItems(
-	userSession: UserSession,
-	intitalActiveItemId?: string
-) {
+export default function useBlockStackSavedItems(intitalActiveItemId?: string) {
+	const { userSession, isLoggedIn } = React.useContext(UserSessionContext);
+
 	const [isSaving, setIsSaving] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [activeItemId, setActiveItemId] = React.useState<string>(
@@ -81,7 +80,9 @@ export default function useBlockStackSavedItems(
 
 	//Load items on first load
 	useEffectOnce(() => {
-		getItems();
+		if (isLoggedIn) {
+			getItems();
+		}
 	});
 
 	return {
