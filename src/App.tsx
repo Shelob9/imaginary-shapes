@@ -7,6 +7,9 @@ import { Layout } from "./Layout";
 import Header from "./Widgets/Header";
 import { ItemsProvider } from "./ItemsContext";
 import UserSessionContext, { UserSessionProvider } from "./UserSessionProvider";
+import DragAndDrop from "./DragAndDrop/DragAndDrop";
+import initialData from "./DragAndDrop/initial-data";
+
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
 
@@ -25,6 +28,9 @@ const Routes = () => {
 					</Route>
 					<Route path="/items">
 						<ItemsPage />
+					</Route>
+					<Route path="/test">
+						<DragAndDrop initialData={initialData} />
 					</Route>
 					<Route path="/">Home Page</Route>
 				</React.Fragment>
