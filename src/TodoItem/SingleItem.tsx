@@ -3,27 +3,8 @@ import { ItemsContext } from "../ItemsContext";
 import { isImportant, isFun, isUrgent } from "../sorter/is";
 import { Box, Card, Text, Label, useColorMode } from "theme-ui";
 import { SavedItem } from "../sorter/types";
-import Emoji from "react-emoji-render";
+import { ThumbToggle } from "./Thumbs";
 
-const Thumb = (props: { isUp: true | false }) => {
-	return (
-		<React.Fragment>
-			{props.isUp ? <Emoji text="👍" /> : <Emoji text="👎" />}
-		</React.Fragment>
-	);
-};
-
-const ThumbToggle = (props: {
-	isUp: boolean;
-	onClick: () => void;
-	children: any;
-}) => (
-	<Box as="div" onClick={props.onClick}>
-		<Label>
-			{props.children} <Thumb isUp={props.isUp} />
-		</Label>
-	</Box>
-);
 const SingleItem = (props: { item: SavedItem; lock: boolean }) => {
 	const { updateItem } = React.useContext(ItemsContext);
 	const { item } = props;

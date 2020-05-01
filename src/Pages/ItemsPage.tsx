@@ -10,7 +10,6 @@ export default function ItemsPage() {
 		isLoading,
 		isSaving,
 		activeItemId,
-		hasChanged,
 		LoadingIndicator,
 		SavingIndicator,
 		saveItems,
@@ -34,7 +33,6 @@ export default function ItemsPage() {
 			<LoadingIndicator />
 			<SavingIndicator />
 			{!isSaving && !isLoading && <Button onClick={saveItems}>Save</Button>}
-			{hasChanged ? <div>Has changed</div> : <div>Has not changed</div>}
 			<SortedItems lock={isSaving || isLoading} />
 		</Box>
 	);

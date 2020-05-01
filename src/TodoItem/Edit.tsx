@@ -1,10 +1,13 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
-import { Item } from "../sorter/types";
+import { Item, SavedItem } from "../sorter/types";
 import Title from "./Title";
 import useItem from "./useItem";
 import InputField from "../InputField";
-import { Input, Styled, Box } from "theme-ui";
+import { Input, Styled, Box, Slider, Label } from "theme-ui";
+import { ThumbToggle } from "./Thumbs";
+import { isUrgent, isImportant, isFun } from "../sorter/is";
+
 export function Edit(props: {
 	titleText: string;
 	submitText: string;
@@ -47,34 +50,78 @@ export function Edit(props: {
 						title,
 					}}
 				/>
-				<InputField
-					{...{
-						type: "number",
-						id: "urgency",
-						label: "Urgency",
-						value: urgency,
-						onChange: (urgency: number) => updateItem({ ...item, urgency }),
-					}}
-				/>
-				<InputField
-					{...{
-						type: "number",
-						id: "importance",
-						label: "Importance",
-						value: importance,
-						onChange: (importance: number) =>
-							updateItem({ ...item, importance }),
-					}}
-				/>
-				<InputField
-					{...{
-						type: "number",
-						id: "fun",
-						label: "Fun",
-						value: fun,
-						onChange: (fun: number) => updateItem({ ...item, fun }),
-					}}
-				/>
+				<Box as={"div"}>
+					<Label htmlFor={"fun"}>
+						<ThumbToggle
+							isUp={isFun(item)}
+							onClick={() => {
+								updateItem({
+									...item,
+									fun: isFun(item) ? 0 : 10,
+								});
+							}}
+						>
+							Fun
+						</ThumbToggle>
+					</Label>
+					<Slider
+						defaultValue={fun}
+						value={fun}
+						min={0}
+						max={10}
+						onChange={(e: ChangeEvent<HTMLInputElement>) => {
+							updateItem({ ...item, fun: parseInt(e.target.value, 10) });
+						}}
+					/>
+				</Box>
+				<Box as={"div"}>
+					<Label htmlFor={"urgency"}>
+						<ThumbToggle
+							isUp={isUrgent(item)}
+							onClick={() => {
+								updateItem({
+									...item,
+									urgency: isUrgent(item) ? 0 : 10,
+								});
+							}}
+						>
+							Urgency
+						</ThumbToggle>
+					</Label>
+					<Slider
+						defaultValue={urgency}
+						value={urgency}
+						min={0}
+						max={10}
+						onChange={(e: ChangeEvent<HTMLInputElement>) => {
+							updateItem({ ...item, urgency: parseInt(e.target.value, 10) });
+						}}
+					/>
+				</Box>
+				<Box as={"div"}>
+					<Label htmlFor={"importance"}>
+						<ThumbToggle
+							isUp={isImportant(item)}
+							onClick={() => {
+								updateItem({
+									...item,
+									importance: isImportant(item) ? 0 : 10,
+								});
+							}}
+						>
+							Importance
+						</ThumbToggle>
+					</Label>
+					<Slider
+						defaultValue={importance}
+						value={importance}
+						min={0}
+						max={10}
+						onChange={(e: ChangeEvent<HTMLInputElement>) => {
+							updateItem({ ...item, importance: parseInt(e.target.value, 10) });
+						}}
+					/>
+				</Box>
 				<Input
 					id={"save"}
 					value={submitText}
