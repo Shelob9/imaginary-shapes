@@ -18,6 +18,9 @@ export default function () {
 				</Box>
 				<Box p={2}>
 					<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
+						<Button onClick={() => history.push("/now")}>Now</Button>
+					</Box>
+					<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
 						<Button onClick={() => history.push("/new")}>New Item</Button>
 					</Box>
 					<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
