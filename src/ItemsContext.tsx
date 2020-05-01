@@ -1,7 +1,7 @@
 import React from "react";
 import useBlockStackSavedItems from "./useBlockStackSavedItems";
 import { SavedItem, savedItemsCollection } from "./sorter/types";
-
+import { Spinner } from "theme-ui";
 type ItemsContextValue = {
 	getItemById: (itemId: string) => SavedItem | undefined;
 	addItem: (item: SavedItem) => void;
@@ -47,9 +47,8 @@ export const ItemsProvider = (props: {
 
 	const hasChanged = false;
 
-	const LoadingIndicator = () =>
-		isLoading ? <div>Loading Spinner</div> : null;
-	const SavingIndicator = () => (isSaving ? <div>Saving Spinner</div> : null);
+	const LoadingIndicator = () => (isLoading ? <Spinner /> : null);
+	const SavingIndicator = () => (isSaving ? <Spinner /> : null);
 
 	return (
 		<ItemsContext.Provider

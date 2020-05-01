@@ -5,7 +5,7 @@ import { Layout } from "./Layout";
 import Header from "./Widgets/Header";
 import { ItemsProvider } from "./ItemsContext";
 import UserSessionContext, { UserSessionProvider } from "./UserSessionProvider";
-
+import { Spinner } from "theme-ui";
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
 
@@ -58,7 +58,7 @@ function Main() {
 }
 export default function App() {
 	return (
-		<Suspense fallback={"Loading"}>
+		<Suspense fallback={<Spinner />}>
 			<UserSessionProvider userSession={userSession}>
 				<ItemsProvider>
 					<Main />
