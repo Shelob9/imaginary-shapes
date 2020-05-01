@@ -1,16 +1,15 @@
 import React from "react";
 import LoginOrLogout from "./Widgets/LoginOrLogout";
-import { A } from "./Theme/index";
-import { Box, Container } from "theme-ui";
+import { Box, Styled } from "theme-ui";
 export default function Signin() {
 	return (
-		<Container>
-			<Box>
+		<Box sx={{ textAlign: "center" }}>
+			<Styled.p>
 				<LoginOrLogout>Sign In With BlockStack</LoginOrLogout>
-			</Box>
-			<Box>
-				<A to={"https://blockstack.org"}>What Is Blockstack?</A>
-			</Box>
-		</Container>
+			</Styled.p>
+			<Styled.p>
+				<Styled.a href="https://blockstack.org">What Is Blockstack?</Styled.a>
+			</Styled.p>
+		</Box>
 	);
 }

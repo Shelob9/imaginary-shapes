@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Container } from "theme-ui";
+import { jsx, Box, Container, Styled } from "theme-ui";
 import { useContext } from "react";
 import UserSessionContext from "./UserSessionProvider";
 export function Layout(props: {
@@ -69,7 +69,15 @@ export function Layout(props: {
 						width: "100%",
 					}}
 				>
-					The Footer
+					<Styled.p>
+						<Styled.a
+							sx={{ marginRight: 2 }}
+							href={"https://github.com/Shelob9/imaginary-shapes"}
+						>
+							View Source
+						</Styled.a>
+						<Styled.a href={"https://joshpress.net"}>Josh</Styled.a>
+					</Styled.p>
 				</Box>
 			</Box>
 		</Container>
