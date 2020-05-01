@@ -1,7 +1,7 @@
 import React from "react";
 import { ItemsContext } from "../ItemsContext";
 import { isImportant, isFun, isUrgent } from "../sorter/is";
-import { Box, Card, Text, Label } from "theme-ui";
+import { Box, Card, Text, Label, useColorMode } from "theme-ui";
 import { SavedItem } from "../sorter/types";
 import Emoji from "react-emoji-render";
 
@@ -28,6 +28,9 @@ const SingleItem = (props: { item: SavedItem; lock: boolean }) => {
 	const { updateItem } = React.useContext(ItemsContext);
 	const { item } = props;
 
+	const [colorMode] = useColorMode();
+	const isDark = colorMode === `dark`;
+
 	const noChange = () => {};
 	const onToggleFun = props.lock
 		? noChange
@@ -52,9 +55,9 @@ const SingleItem = (props: { item: SavedItem; lock: boolean }) => {
 			sx={{
 				margin: `8px`,
 				padding: `8px`,
-
 				maxWidth: 256,
-				boxShadow: `rgba(0, 0, 0, 0.125) 0px 0px 8px`,
+				//Conditonal makes shadow darker (less transparent) in dark mode
+				boxShadow: `rgba(0, 0, 0, ${isDark ? "0.6" : "0.125"}) 0px 0px 8px`,
 			}}
 		>
 			<ThumbToggle onClick={onToggleFun} isUp={isFun(item)}>
