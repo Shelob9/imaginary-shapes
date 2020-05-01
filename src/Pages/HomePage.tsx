@@ -33,26 +33,6 @@ export default function HomePage() {
 					<Styled.a sx={{ marginRight: 2 }} href={"/faq"}>
 						FAQ
 					</Styled.a>
-					<Styled.h2></Styled.h2>
-					<Grid gap={2} columns={[2, "1fr 2fr"]}>
-						<Box>
-							<Styled.h2>Work On Goals</Styled.h2>
-						</Box>
-						<Box bg="muted">
-							<Styled.p>
-								Organize goals, habbits and priorities and track progress on
-								them, track progress on them. Helps decide what to work on.
-							</Styled.p>
-						</Box>
-					</Grid>
-					<Grid gap={2} columns={[2, "2fr 1fr"]}>
-						<Box>
-							<Styled.h2>Control The Data</Styled.h2>
-						</Box>
-						<Box bg="muted">
-							<Styled.p>Your data can not be monetized.</Styled.p>
-						</Box>
-					</Grid>
 				</Grid>
 			</Box>
 		</Container>

@@ -21,7 +21,6 @@ const CompletedItemsPage = () => {
 							sx={{
 								margin: `8px`,
 								padding: `8px`,
-								maxWidth: 256,
 								//Conditonal makes shadow darker (less transparent) in dark mode
 								boxShadow: `rgba(0, 0, 0, ${
 									isDark ? "0.6" : "0.125"

@@ -4,7 +4,7 @@ export const PageTemplate = (props: { children: any; title: string }) => (
 	<Container>
 		<Box
 			sx={{
-				maxWidth: 512,
+				maxWidth: 1200,
 				mx: "auto",
 				px: 3,
 				py: 4,
