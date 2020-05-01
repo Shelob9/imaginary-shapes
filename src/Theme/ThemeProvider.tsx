@@ -3,9 +3,9 @@ import React from "react";
 import { ThemeProvider } from "theme-ui";
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-const blackTint = "#262626";
-const whiteTint = "#d9d9d9";
-const white = "#fff";
+export const blackTint = "#262626";
+export const whiteTint = "#d9d9d9";
+export const white = "#fff";
 
 const styles = {
 	root: {
@@ -37,10 +37,6 @@ const styles = {
 		paddingBottom: `0.05em`,
 		paddingX: `0.2em`,
 	},
-	// from typography overrideThemeStyles
-	a: {
-		color: blackTint,
-	},
 	hr: {
 		borderColor: `muted`,
 	},
@@ -62,6 +58,9 @@ const styles = {
 			fontSize: `1em`,
 		},
 	},
+	a: {
+		color: "secondary",
+	},
 };
 
 const theme = {
@@ -75,12 +74,20 @@ const theme = {
 		text: blackTint,
 		background: white,
 		primary: blackTint,
+		secondary: blackTint,
 		modes: {
 			dark: {
 				primary: whiteTint,
+				secondary: whiteTint,
 				text: whiteTint,
 				background: blackTint,
 			},
+		},
+	},
+	buttons: {
+		primary: {
+			color: "background", // use the page background color for an inverted effect
+			bg: "primary",
 		},
 	},
 	styles,

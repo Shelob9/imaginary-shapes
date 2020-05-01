@@ -1,10 +1,13 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Styled, useColorMode } from "theme-ui";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { ItemsContext } from "../ItemsContext";
+import { whiteTint, blackTint } from "./ThemeProvider";
 export function A(props: { to: string; children: string; title?: string }) {
 	const history = useHistory();
+	const [colorMode] = useColorMode();
+	const isDark = colorMode === `dark`;
 	const { setActiveItemId } = useContext(ItemsContext);
 
 	const onClick = (e: React.ChangeEvent<any>) => {

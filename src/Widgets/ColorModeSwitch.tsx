@@ -17,7 +17,7 @@ Switch.defaultProps = {
 export default function () {
 	const [colorMode, setColorMode] = useColorMode();
 	const isDark = colorMode === `dark`;
-	const toggleColorMode = (e) => {
+	const toggleColorMode = () => {
 		setColorMode(isDark ? `light` : `dark`);
 	};
 	return (
