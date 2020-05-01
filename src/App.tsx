@@ -13,6 +13,8 @@ const userSession = new UserSession({ appConfig: appConfig });
 const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
 const ItemsPage = React.lazy(() => import("./Pages/ItemsPage"));
 const HomePage = React.lazy(() => import("./Pages/HomePage"));
+const FAQPage = React.lazy(() => import("./Pages/FAQPage"));
+
 const Sidebar = React.lazy(() => import("./Sidebar"));
 
 //Wrapper
@@ -24,35 +26,38 @@ function Main() {
 			Sidebar={() => <div>{isLoggedIn ? <Sidebar /> : null}</div>}
 			Header={() => <Header />}
 		>
-			{!isLoggedIn ? (
-				<HomePage />
-			) : (
-				<React.Fragment>
-					<Switch>
-						{isLoggedIn ? (
-							<React.Fragment>
-								<Route path="/roy">
-									<p>Hi Roy</p>
-								</Route>
-
-								<Route path="/items/:id">
-									<ItemPage />
-								</Route>
-								<Route exact path="/items">
-									<ItemsPage />
-								</Route>
-								<Route exact path="/">
-									<ItemsPage />
-								</Route>
-							</React.Fragment>
-						) : (
-							<Route path="/">
+			<React.Fragment>
+				<Switch>
+					{isLoggedIn ? (
+						<React.Fragment>
+							<Route path="/roy">
+								<p>Hi Roy</p>
+							</Route>
+							<Route path="/faq">
+								<FAQPage />
+							</Route>
+							<Route path="/items/:id">
+								<ItemPage />
+							</Route>
+							<Route exact path="/items">
+								<ItemsPage />
+							</Route>
+							<Route exact path="/">
+								<ItemsPage />
+							</Route>
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<Route exact path="/faq">
+								<FAQPage />
+							</Route>
+							<Route exact path="/">
 								<HomePage />
 							</Route>
-						)}
-					</Switch>
-				</React.Fragment>
-			)}
+						</React.Fragment>
+					)}
+				</Switch>
+			</React.Fragment>
 		</Layout>
 	);
 }

@@ -76,7 +76,12 @@ export function Layout(props: {
 						>
 							View Source
 						</Styled.a>
-						<Styled.a href={"https://joshpress.net"}>Josh</Styled.a>
+						<Styled.a sx={{ marginRight: 2 }} href={"https://joshpress.net"}>
+							Josh
+						</Styled.a>
+						<Styled.a sx={{ marginRight: 2 }} href={"/faq"}>
+							FAQ
+						</Styled.a>
 					</Styled.p>
 				</Box>
 			</Box>

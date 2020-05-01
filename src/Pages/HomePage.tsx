@@ -4,6 +4,7 @@ import Signin from "../Signin";
 import { useContext } from "react";
 import UserSessionContext from "../UserSessionProvider";
 import { useHistory } from "react-router-dom";
+
 export default function HomePage() {
 	const { isLoggedIn } = useContext(UserSessionContext);
 	const history = useHistory();
@@ -29,6 +30,9 @@ export default function HomePage() {
 							</Button>
 						)}
 					</Box>
+					<Styled.a sx={{ marginRight: 2 }} href={"/faq"}>
+						FAQ
+					</Styled.a>
 				</Grid>
 			</Box>
 		</Container>
