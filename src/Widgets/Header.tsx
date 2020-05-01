@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Divider, Box, Button, Styled, Flex } from "theme-ui";
 import LoginOrLogout from "./LoginOrLogout";
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import UserSessionContext from "../UserSessionProvider";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { useHistory } from "react-router-dom";
@@ -17,15 +17,19 @@ export default function () {
 					</Styled.h1>
 				</Box>
 				<Box p={2}>
-					<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
-						<Button onClick={() => history.push("/now")}>Now</Button>
-					</Box>
-					<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
-						<Button onClick={() => history.push("/new")}>New Item</Button>
-					</Box>
-					<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
-						<LoginOrLogout />
-					</Box>
+					{isLoggedIn && (
+						<Fragment>
+							<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
+								<Button onClick={() => history.push("/now")}>Now</Button>
+							</Box>
+							<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
+								<Button onClick={() => history.push("/new")}>New Item</Button>
+							</Box>
+							<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
+								<LoginOrLogout />
+							</Box>
+						</Fragment>
+					)}
 					<Box as={"span"} sx={{ display: "inline", mr: isLoggedIn ? 12 : 0 }}>
 						<ColorModeSwitch />
 					</Box>
