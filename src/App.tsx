@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { UserSession, AppConfig } from "blockstack";
 import { Switch, Route } from "react-router-dom";
 import { Layout } from "./Layout";
@@ -6,7 +6,9 @@ import Header from "./Widgets/Header";
 import { ItemsProvider } from "./ItemsContext";
 import UserSessionContext, { UserSessionProvider } from "./UserSessionProvider";
 import { Spinner } from "theme-ui";
-const appConfig = new AppConfig();
+
+const appConfig = new AppConfig(["store_write"], undefined, "/login-return");
+
 const userSession = new UserSession({ appConfig: appConfig });
 
 //Lazy-loaded pages
@@ -21,6 +23,15 @@ const FAQPage = React.lazy(() => import("./Pages/FAQPage"));
 
 const Sidebar = React.lazy(() => import("./Sidebar"));
 
+const HiRoy = () => <p>Hi Roy</p>;
+const AuthReturn = () => {
+	useEffect(() => {
+		window.setTimeout(() => {
+			window.location.replace("/");
+		}, 500);
+	});
+	return <Spinner />;
+};
 //Wrapper
 function Main() {
 	const { isLoggedIn } = React.useContext(UserSessionContext);
@@ -35,7 +46,10 @@ function Main() {
 					{isLoggedIn ? (
 						<React.Fragment>
 							<Route path="/roy">
-								<p>Hi Roy</p>
+								<HiRoy />
+							</Route>
+							<Route exact path="/login-return">
+								<AuthReturn />
 							</Route>
 							<Route path="/faq">
 								<FAQPage />
@@ -58,6 +72,12 @@ function Main() {
 						</React.Fragment>
 					) : (
 						<React.Fragment>
+							<Route path="/roy">
+								<p>Hi Roy</p>
+							</Route>
+							<Route exact path="/login-return">
+								<AuthReturn />
+							</Route>
 							<Route exact path="/faq">
 								<FAQPage />
 							</Route>

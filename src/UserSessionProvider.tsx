@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { UserSession, Person } from "blockstack";
 import { useHistory } from "react-router-dom";
 const UserSessionContext = React.createContext<{
@@ -17,7 +17,10 @@ export function UserSessionProvider(props: {
 	userSession: UserSession;
 }) {
 	const { children, userSession } = props;
-	const history = useHistory();
+	const person = userSession.isUserSignedIn()
+		? new Person(userSession.loadUserData().profile)
+		: undefined;
+
 	function handleSignIn() {
 		userSession.redirectToSignIn();
 	}
@@ -32,16 +35,12 @@ export function UserSessionProvider(props: {
 
 	React.useEffect(() => {
 		if (userSession.isSignInPending()) {
-			userSession.handlePendingSignIn().then((userData) => {
-				history.push("/");
-				window.history.replaceState({}, document.title, "/");
-			});
+			if (userSession.isUserSignedIn()) {
+				userSession.signUserOut();
+			}
+			userSession.handlePendingSignIn().then(() => {});
 		}
 	});
-
-	const person = isLoggedIn
-		? new Person(userSession.loadUserData().profile)
-		: undefined;
 
 	return (
 		<UserSessionContext.Provider
