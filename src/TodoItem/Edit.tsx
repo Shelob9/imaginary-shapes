@@ -8,6 +8,7 @@ import { Input, Styled, Box, Slider, Label } from "theme-ui";
 import { ThumbToggle } from "./Thumbs";
 import { isUrgent, isImportant, isFun } from "../sorter/is";
 
+export const EditForm = () => {};
 export function Edit(props: {
 	titleText: string;
 	submitText: string;
