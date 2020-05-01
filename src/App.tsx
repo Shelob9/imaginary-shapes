@@ -16,6 +16,10 @@ const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
 const ItemsPage = React.lazy(() => import("./Pages/ItemsPage"));
 const NowPage = React.lazy(() => import("./Pages/NowPage"));
 const HomePage = React.lazy(() => import("./Pages/HomePage"));
+const CompletedItemsPage = React.lazy(() =>
+	import("./Pages/CompletedItemsPage")
+);
+
 const NewItemPage = React.lazy(() => import("./Pages/NewItemPage"));
 const HabbitTrackingPage = React.lazy(() =>
 	import("./Pages/HabbitTrackingPage")
@@ -57,6 +61,9 @@ function Main() {
 							</Route>
 							<Route exact path={"/new"}>
 								<NewItemPage />
+							</Route>
+							<Route exact path={"/completed"}>
+								<CompletedItemsPage />
 							</Route>
 							<Route exact path="/habits">
 								<HabbitTrackingPage />

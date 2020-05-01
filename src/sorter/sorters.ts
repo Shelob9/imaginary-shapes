@@ -52,6 +52,13 @@ function notDoneOnly(items: savedItemsCollection): savedItemsCollection {
 	return items.filter((item: SavedItem) => !isDone(item));
 }
 
+function doneOnly(items: savedItemsCollection): savedItemsCollection {
+	if (!items || !items.length) {
+		return [];
+	}
+	return items.filter((item: SavedItem) => isDone(item));
+}
+
 export {
 	onlyGreater,
 	sortBy,
@@ -60,4 +67,5 @@ export {
 	urgencySort,
 	importantOnly,
 	notDoneOnly,
+	doneOnly,
 };

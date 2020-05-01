@@ -1,4 +1,4 @@
-import { Box, Label, Text } from "theme-ui";
+import { Box, Label, Text, Styled } from "theme-ui";
 import React, { Fragment } from "react";
 import Emoji from "react-emoji-render";
 import { SavedItem } from "../sorter/types";
@@ -29,9 +29,9 @@ const ItemThumb = (props: { item: SavedItem }) => {
 	const { item } = props;
 	return (
 		<Box as="div">
-			<Text>
+			<Styled.h3>
 				<A to={`/items/$item.id}`}>{item.title}</A>
-			</Text>
+			</Styled.h3>
 			<Thumb isUp={isFun(item)} />
 			<Thumb isUp={isUrgent(item)} />
 			<Thumb isUp={isImportant(item)} />
