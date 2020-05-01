@@ -30,7 +30,7 @@ const ItemThumb = (props: { item: SavedItem }) => {
 	return (
 		<Box as="div">
 			<Styled.h3>
-				<A to={`/items/$item.id}`}>{item.title}</A>
+				<A to={`/items/${item.id}`}>{item.title}</A>
 			</Styled.h3>
 			<Thumb isUp={isFun(item)} />
 			<Thumb isUp={isUrgent(item)} />
