@@ -2,6 +2,47 @@
 import { jsx, Box, Container, Styled } from "theme-ui";
 import { useContext } from "react";
 import UserSessionContext from "./UserSessionProvider";
+
+const Footer = () => {
+	const { isLoggedIn, person } = useContext(UserSessionContext);
+
+	return (
+		<Box
+			as={"footer"}
+			sx={{
+				width: "100%",
+			}}
+		>
+			<Styled.p
+				sx={{
+					display: "inline",
+					float: "left",
+				}}
+			>
+				<Styled.a
+					sx={{ marginRight: 2 }}
+					href={"https://github.com/Shelob9/imaginary-shapes"}
+				>
+					View Source
+				</Styled.a>
+				<Styled.a sx={{ marginRight: 2 }} href={"https://joshpress.net"}>
+					Josh
+				</Styled.a>
+				<Styled.a sx={{ marginRight: 2 }} href={"/faq"}>
+					FAQ
+				</Styled.a>
+			</Styled.p>
+			<Styled.p
+				sx={{
+					display: "inline",
+					float: "right",
+				}}
+			>
+				Hi {isLoggedIn ? person.name() : "Roy"}
+			</Styled.p>
+		</Box>
+	);
+};
 export function Layout(props: {
 	children: any;
 	Header: () => any;
@@ -63,27 +104,7 @@ export function Layout(props: {
 						</Box>
 					</Box>
 				</Box>
-				<Box
-					as={"footer"}
-					sx={{
-						width: "100%",
-					}}
-				>
-					<Styled.p>
-						<Styled.a
-							sx={{ marginRight: 2 }}
-							href={"https://github.com/Shelob9/imaginary-shapes"}
-						>
-							View Source
-						</Styled.a>
-						<Styled.a sx={{ marginRight: 2 }} href={"https://joshpress.net"}>
-							Josh
-						</Styled.a>
-						<Styled.a sx={{ marginRight: 2 }} href={"/faq"}>
-							FAQ
-						</Styled.a>
-					</Styled.p>
-				</Box>
+				<Footer />
 			</Box>
 		</Container>
 	);

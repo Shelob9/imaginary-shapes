@@ -1,11 +1,12 @@
 import React from "react";
-import { UserSession } from "blockstack";
+import { UserSession, Person } from "blockstack";
 import { useHistory } from "react-router-dom";
 const UserSessionContext = React.createContext<{
 	userSession: UserSession;
 	handleSignIn: () => void;
 	handleSignOut: () => void;
 	isLoggedIn: boolean;
+	person?: Person;
 }>(
 	//@ts-ingore
 	null
@@ -38,9 +39,13 @@ export function UserSessionProvider(props: {
 		}
 	});
 
+	const person = isLoggedIn
+		? new Person(userSession.loadUserData().profile)
+		: undefined;
+
 	return (
 		<UserSessionContext.Provider
-			value={{ userSession, handleSignIn, handleSignOut, isLoggedIn }}
+			value={{ userSession, handleSignIn, handleSignOut, isLoggedIn, person }}
 		>
 			{children}
 		</UserSessionContext.Provider>
