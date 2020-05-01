@@ -28,6 +28,7 @@ export default function ItemsPage() {
 	if (activeItem) {
 		return <div>{activeItem.id}</div>;
 	}
+
 	return (
 		<Box>
 			<LoadingIndicator />

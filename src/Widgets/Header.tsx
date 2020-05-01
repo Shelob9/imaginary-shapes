@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Divider, Box, Styled } from "theme-ui";
+import { jsx, Divider, Box, Styled, Flex } from "theme-ui";
 import { A } from "../Theme/index";
 import LoginOrLogout from "./LoginOrLogout";
 import { useContext } from "react";
@@ -9,18 +9,21 @@ export default function () {
 	const { isLoggedIn } = useContext(UserSessionContext);
 	return (
 		<Box as={"header"}>
-			<Styled.h1 sx={{ display: "inline", mr: 12 }}>
-				<A to={"/"}>Imaginary Shapes</A>
-			</Styled.h1>
-			<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
-				<LoginOrLogout />
-			</Box>
-			<Box as={"span"} sx={{ display: "inline", mr: isLoggedIn ? 12 : 0 }}>
-				<ColorModeSwitch />
-			</Box>
-			<Box as={"span"} sx={{ display: "inline" }}>
-				{isLoggedIn ? <A to="/items">Organize Items</A> : null}
-			</Box>
+			<Flex>
+				<Box p={2} sx={{ flex: "1 1 auto" }}>
+					<Styled.h1 sx={{ display: "inline", mr: 12 }}>
+						Imaginary Shapes
+					</Styled.h1>
+				</Box>
+				<Box p={2}>
+					<Box as={"span"} sx={{ display: "inline", mr: 12 }}>
+						<LoginOrLogout />
+					</Box>
+					<Box as={"span"} sx={{ display: "inline", mr: isLoggedIn ? 12 : 0 }}>
+						<ColorModeSwitch />
+					</Box>
+				</Box>
+			</Flex>
 			<Divider />
 		</Box>
 	);
