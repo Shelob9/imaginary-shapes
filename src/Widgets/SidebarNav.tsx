@@ -9,6 +9,9 @@ const SidebarNav = () => {
 				<Styled.li>
 					<A to={"/items"}>Organize Items</A>
 				</Styled.li>
+				<Styled.li>
+					<A to={"/habbits"}>Track Habbits</A>
+				</Styled.li>
 			</Styled.ul>
 		</Widget>
 	);

@@ -13,6 +13,9 @@ const userSession = new UserSession({ appConfig: appConfig });
 const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
 const ItemsPage = React.lazy(() => import("./Pages/ItemsPage"));
 const HomePage = React.lazy(() => import("./Pages/HomePage"));
+const HabbitTrackingPage = React.lazy(() =>
+	import("./Pages/HabbitTrackingPage")
+);
 const FAQPage = React.lazy(() => import("./Pages/FAQPage"));
 
 const Sidebar = React.lazy(() => import("./Sidebar"));
@@ -35,6 +38,9 @@ function Main() {
 							</Route>
 							<Route path="/faq">
 								<FAQPage />
+							</Route>
+							<Route exact path="/habits">
+								<HabbitTrackingPage />
 							</Route>
 							<Route path="/items/:id">
 								<ItemPage />
