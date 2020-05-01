@@ -20,7 +20,7 @@ export default function HomePage() {
 			>
 				<Grid sx={{ textAlign: "center" }}>
 					<Styled.h1>Imaginary Shapes</Styled.h1>
-					<Styled.p>A prioritization and habbit forming game. </Styled.p>
+					<Styled.p>A prioritization game. </Styled.p>
 					<Box p={2}>
 						{!isLoggedIn ? (
 							<Signin />
