@@ -34,11 +34,12 @@ function Main() {
 								<Route path="/roy">
 									<p>Hi Roy</p>
 								</Route>
-								<Route path="/items">
-									<ItemsPage />
-								</Route>
+
 								<Route path="/items/:id">
 									<ItemPage />
+								</Route>
+								<Route exact path="/items">
+									<ItemsPage />
 								</Route>
 								<Route exact path="/">
 									<ItemsPage />

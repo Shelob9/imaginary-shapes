@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Fragment } from "react";
+import React from "react";
 
 import { Item } from "../sorter/types";
 import Title from "./Title";

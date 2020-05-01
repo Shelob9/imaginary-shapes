@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { useContext } from "react";
-import { Styled, Box } from "theme-ui";
+import { Styled } from "theme-ui";
 import { SavedItem } from "../sorter/types";
 import { A } from "../Theme/index";
 import { ItemsContext } from "../ItemsContext";

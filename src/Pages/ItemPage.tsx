@@ -10,8 +10,6 @@ export default function ItemPage() {
 		saveItem,
 		setActiveItemId,
 		getItemById,
-		isLoading,
-		isSaving,
 		items,
 		LoadingIndicator,
 		SavingIndicator,
@@ -28,26 +26,23 @@ export default function ItemPage() {
 		return getItemById(activeItemId);
 	}, [activeItemId, items, getItemById]);
 
-	return React.useMemo(
-		() => (
-			<React.Fragment>
-				<LoadingIndicator />
-				<SavingIndicator />
-				{initialItem ? (
-					<React.Fragment>
-						<Edit
-							onSave={saveItem}
-							titleText={`Edit ${initialItem.title}`}
-							initialItem={initialItem}
-							submitText={"Update"}
-							activeItemId={activeItemId}
-						/>
-					</React.Fragment>
-				) : (
-					<div>Not Found</div>
-				)}
-			</React.Fragment>
-		),
-		[activeItemId, items]
+	return (
+		<React.Fragment>
+			<LoadingIndicator />
+			<SavingIndicator />
+			{initialItem ? (
+				<React.Fragment>
+					<Edit
+						onSave={saveItem}
+						titleText={`Edit ${initialItem.title}`}
+						initialItem={initialItem}
+						submitText={"Update"}
+						activeItemId={activeItemId}
+					/>
+				</React.Fragment>
+			) : (
+				<div>Not Found</div>
+			)}
+		</React.Fragment>
 	);
 }

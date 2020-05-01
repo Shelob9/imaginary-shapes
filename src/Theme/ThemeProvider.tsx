@@ -1,3 +1,4 @@
+//@eslint-ignore
 import React from "react";
 import { ThemeProvider } from "theme-ui";
 /** @jsx jsx */

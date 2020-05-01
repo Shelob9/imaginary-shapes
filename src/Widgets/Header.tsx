@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx, Divider, Box, Styled, Flex } from "theme-ui";
-import { A } from "../Theme/index";
 import LoginOrLogout from "./LoginOrLogout";
 import { useContext } from "react";
 import UserSessionContext from "../UserSessionProvider";
