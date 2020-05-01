@@ -1,15 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { SavedItem } from "../sorter/types";
 import { Box, Button } from "theme-ui";
 import { ItemsContext } from "../ItemsContext";
 import SortedItems from "../SortedItems";
 
 export default function ItemsPage() {
 	const {
-		addItem,
 		activeItem,
-		saveNewItem,
 		isLoading,
 		isSaving,
 		activeItemId,

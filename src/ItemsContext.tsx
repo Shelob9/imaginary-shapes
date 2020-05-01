@@ -1,8 +1,6 @@
 import React from "react";
-import { UserSession } from "blockstack";
 import useBlockStackSavedItems from "./useBlockStackSavedItems";
 import { SavedItem, savedItemsCollection } from "./sorter/types";
-import UserSessionContext from "./UserSessionProvider";
 
 type ItemsContextValue = {
 	getItemById: (itemId: string) => SavedItem | undefined;

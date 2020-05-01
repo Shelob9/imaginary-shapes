@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx, Divider, Box, Styled } from "theme-ui";
-import { ToggleColorMode, A } from "../Theme/index";
+import { A } from "../Theme/index";
 import LoginOrLogout from "./LoginOrLogout";
 import { useContext } from "react";
 import UserSessionContext from "../UserSessionProvider";
+import ColorModeSwitch from "./ColorModeSwitch";
 export default function () {
 	const { isLoggedIn } = useContext(UserSessionContext);
 	return (
@@ -15,7 +16,7 @@ export default function () {
 				<LoginOrLogout />
 			</Box>
 			<Box as={"span"} sx={{ display: "inline", mr: isLoggedIn ? 12 : 0 }}>
-				<ToggleColorMode />
+				<ColorModeSwitch />
 			</Box>
 			<Box as={"span"} sx={{ display: "inline" }}>
 				{isLoggedIn ? <A to="/items">Organize Items</A> : null}
