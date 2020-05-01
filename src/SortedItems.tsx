@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ItemsContext } from "./ItemsContext";
 import quadrants, { quadrantsType } from "./sorter/quadrants";
 import { savedItemsCollection, SavedItem } from "./sorter/types";
@@ -231,7 +231,7 @@ export const reorderOnLocationChange = (
 
 export default function (props: { lock: boolean }) {
 	const { asDndState } = useQuadrants();
-
+	const gridRef = useRef();
 	const {
 		isLoading,
 		LoadingIndicator,
@@ -240,8 +240,6 @@ export default function (props: { lock: boolean }) {
 		items,
 		updateItems,
 	} = React.useContext(ItemsContext);
-
-	const currentState = asDndState();
 
 	const middleware = (
 		update: dragAndDropState,
@@ -261,12 +259,25 @@ export default function (props: { lock: boolean }) {
 		return update;
 	};
 
+	//When items change re-sort
+	//This allows for thumb toggling to update state
+	React.useEffect(() => {
+		if (items && gridRef.current) {
+			//@ts-ignore
+			gridRef.current.resetState(asDndState());
+		}
+	}, [items, asDndState]);
+
 	return (
 		<React.Fragment>
 			<LoadingIndicator />
 			<SavingIndicator />
 			{!isLoading && (
-				<DragAndDrop initialData={currentState} stateMiddleWare={middleware} />
+				<DragAndDrop
+					gridRef={gridRef}
+					initialData={asDndState()}
+					stateMiddleWare={middleware}
+				/>
 			)}
 		</React.Fragment>
 	);

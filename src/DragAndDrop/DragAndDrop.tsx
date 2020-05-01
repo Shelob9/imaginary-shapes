@@ -20,13 +20,19 @@ class DragAndDrop extends React.Component<
 			update: dragAndDropState,
 			locationChange: locationChange
 		) => dragAndDropState;
+		gridRef: React.Ref<any>;
 	},
 	dragAndDropState
 > {
 	constructor(props) {
 		super(props);
+		props.gridRef.current = this;
 		this.state = props.initialData;
 	}
+
+	resetState = (update: dragAndDropState) => {
+		this.setState(update);
+	};
 
 	//IMPORTANT: ALWAYS use this to set state
 	updateState = (update: dragAndDropState, locationChange: locationChange) => {

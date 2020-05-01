@@ -60,6 +60,8 @@ const SingleItem = (props: { item: SavedItem; lock: boolean }) => {
 				boxShadow: `rgba(0, 0, 0, ${isDark ? "0.6" : "0.125"}) 0px 0px 8px`,
 			}}
 		>
+			<Text>{item.title}</Text>
+
 			<ThumbToggle onClick={onToggleFun} isUp={isFun(item)}>
 				Is Fun
 			</ThumbToggle>
@@ -69,7 +71,6 @@ const SingleItem = (props: { item: SavedItem; lock: boolean }) => {
 			<ThumbToggle onClick={onToggleImportant} isUp={isImportant(item)}>
 				Is Important
 			</ThumbToggle>
-			<Text>{item.title}</Text>
 		</Card>
 	);
 };
