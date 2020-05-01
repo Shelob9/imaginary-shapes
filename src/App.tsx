@@ -12,6 +12,7 @@ const userSession = new UserSession({ appConfig: appConfig });
 //Lazy-loaded pages
 const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
 const ItemsPage = React.lazy(() => import("./Pages/ItemsPage"));
+const NowPage = React.lazy(() => import("./Pages/NowPage"));
 const HomePage = React.lazy(() => import("./Pages/HomePage"));
 const HabbitTrackingPage = React.lazy(() =>
 	import("./Pages/HabbitTrackingPage")
@@ -48,8 +49,11 @@ function Main() {
 							<Route exact path="/items">
 								<ItemsPage />
 							</Route>
+							<Route exact path="/now">
+								<NowPage />
+							</Route>
 							<Route exact path="/">
-								<ItemsPage />
+								<NowPage />
 							</Route>
 						</React.Fragment>
 					) : (
