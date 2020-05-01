@@ -5,7 +5,7 @@ import Title from "./Title";
 
 import shortid from "shortid";
 
-export function New(props: {
+export default function New(props: {
 	titleText?: string;
 	submitText?: string;
 	onSave: (item: SavedItem) => void;
@@ -28,7 +28,7 @@ export function New(props: {
 				handleSubmit();
 			}}
 		>
-			<Title title={title} setTitle={setTile} />;
+			<Title title={title} setTitle={setTile} />
 			<input
 				type={"submit"}
 				value={props.titleText ? props.titleText : "Create"}
