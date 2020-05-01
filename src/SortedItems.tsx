@@ -126,12 +126,29 @@ export function useQuadrants() {
 			columnOrder: ["topLeft", "topRight", "bottomLeft", "bottomRight"],
 		};
 	};
+
+	const getFirstItem = (): SavedItem | void => {
+		if (topLeft.length) {
+			return topLeft[0];
+		}
+		if (topRight.length) {
+			return topRight[0];
+		}
+		if (bottomLeft.length) {
+			return bottomLeft[0];
+		}
+		if (bottomRight.length) {
+			return bottomRight[0];
+		}
+	};
+
 	return {
 		topLeft: topLeft as savedItemsCollection,
 		topRight: topRight as savedItemsCollection,
 		bottomLeft: bottomLeft as savedItemsCollection,
 		bottomRight: bottomRight as savedItemsCollection,
 		asDndState,
+		getFirstItem,
 	};
 }
 

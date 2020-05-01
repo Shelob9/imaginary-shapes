@@ -1,6 +1,10 @@
-import { Box, Label } from "theme-ui";
+import { Box, Label, Text } from "theme-ui";
 import React, { Fragment } from "react";
 import Emoji from "react-emoji-render";
+import { SavedItem } from "../sorter/types";
+import { A } from "../Theme/index";
+import { isFun, isUrgent, isImportant } from "../sorter/is";
+
 const Thumb = (props: { isUp: true | false }) => {
 	return (
 		<Fragment>
@@ -21,4 +25,18 @@ const ThumbToggle = (props: {
 	</Box>
 );
 
-export { ThumbToggle, Thumb };
+const ItemThumb = (props: { item: SavedItem }) => {
+	const { item } = props;
+	return (
+		<Box as="div">
+			<Text>
+				<A to={`/items/$item.id}`}>{item.title}</A>
+			</Text>
+			<Thumb isUp={isFun(item)} />
+			<Thumb isUp={isUrgent(item)} />
+			<Thumb isUp={isImportant(item)} />
+		</Box>
+	);
+};
+
+export { ThumbToggle, Thumb, ItemThumb };
