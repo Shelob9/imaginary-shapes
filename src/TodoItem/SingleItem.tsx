@@ -50,8 +50,11 @@ const SingleItem = (props: { item: SavedItem; lock: boolean }) => {
 	return (
 		<Card
 			sx={{
+				margin: `8px`,
+				padding: `8px`,
+
 				maxWidth: 256,
-				border: `1px solid black`,
+				boxShadow: `rgba(0, 0, 0, 0.125) 0px 0px 8px`,
 			}}
 		>
 			<ThumbToggle onClick={onToggleFun} isUp={isFun(item)}>
