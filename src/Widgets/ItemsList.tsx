@@ -1,30 +1,60 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { useContext } from "react";
 import { Styled } from "theme-ui";
 import { SavedItem } from "../sorter/types";
 import { A } from "../Theme/index";
-import { ItemsContext } from "../ItemsContext";
 import Widget from "./Widget";
+import { useQuadrants } from "../SortedItems";
 
-export default function ItemsPage() {
-	const { items, LoadingIndicator, SavingIndicator } = useContext(ItemsContext);
-
+export default function ItemsList() {
+	const { topLeft, topRight, bottomLeft, bottomRight } = useQuadrants();
 	return (
 		<Widget title={"Items Being Tracked"}>
-			<LoadingIndicator />
-			<SavingIndicator />
 			<Styled.ul>
-				{items.map((item: SavedItem) => (
-					<Styled.li
-						key={item.id}
-						sx={{
-							maxWidth: 256,
-						}}
-					>
-						<A to={`/items/${item.id}`}>{item.title}</A>
-					</Styled.li>
-				))}
+				{topLeft &&
+					topLeft.map((item: SavedItem) => (
+						<Styled.li
+							key={item.id}
+							sx={{
+								maxWidth: 256,
+							}}
+						>
+							<A to={`/items/${item.id}`}>{item.title}</A>
+						</Styled.li>
+					))}
+				{topRight &&
+					topRight.map((item: SavedItem) => (
+						<Styled.li
+							key={item.id}
+							sx={{
+								maxWidth: 256,
+							}}
+						>
+							<A to={`/items/${item.id}`}>{item.title}</A>
+						</Styled.li>
+					))}
+				{bottomLeft &&
+					bottomLeft.map((item: SavedItem) => (
+						<Styled.li
+							key={item.id}
+							sx={{
+								maxWidth: 256,
+							}}
+						>
+							<A to={`/items/${item.id}`}>{item.title}</A>
+						</Styled.li>
+					))}
+				{bottomRight &&
+					bottomRight.map((item: SavedItem) => (
+						<Styled.li
+							key={item.id}
+							sx={{
+								maxWidth: 256,
+							}}
+						>
+							<A to={`/items/${item.id}`}>{item.title}</A>
+						</Styled.li>
+					))}
 			</Styled.ul>
 		</Widget>
 	);
