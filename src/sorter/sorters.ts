@@ -1,4 +1,5 @@
 import { savedItemsCollection, SavedItem } from "./types";
+import { isDone } from "./is";
 
 function onlyGreater(
 	items: savedItemsCollection,
@@ -44,6 +45,13 @@ function urgencySort(items: savedItemsCollection): savedItemsCollection {
 	return sortBy(funSort(items), "urgency");
 }
 
+function notDoneOnly(items: savedItemsCollection): savedItemsCollection {
+	if (!items || !items.length) {
+		return [];
+	}
+	return items.filter((item: SavedItem) => !isDone(item));
+}
+
 export {
 	onlyGreater,
 	sortBy,
@@ -51,4 +59,5 @@ export {
 	importantanceSort,
 	urgencySort,
 	importantOnly,
+	notDoneOnly,
 };

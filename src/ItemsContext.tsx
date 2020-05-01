@@ -19,6 +19,7 @@ type ItemsContextValue = {
 	hasChanged: boolean;
 	LoadingIndicator: () => JSX.Element;
 	SavingIndicator: () => JSX.Element;
+	makeItemDone: (item: SavedItem) => Promise<void>;
 };
 export const ItemsContext = React.createContext<ItemsContextValue>(
 	//@ts-ignore
@@ -47,6 +48,10 @@ export const ItemsProvider = (props: {
 
 	const hasChanged = false;
 
+	const makeItemDone = (item: SavedItem) => {
+		return saveItem({ ...item, done: true });
+	};
+
 	const LoadingIndicator = () => (isLoading ? <Spinner /> : null);
 	const SavingIndicator = () => (isSaving ? <Spinner /> : null);
 
@@ -69,6 +74,7 @@ export const ItemsProvider = (props: {
 				LoadingIndicator,
 				SavingIndicator,
 				updateItems,
+				makeItemDone,
 			}}
 		>
 			{props.children}

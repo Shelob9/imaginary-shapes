@@ -2,6 +2,18 @@ import quadrants from "./quadrants";
 import { findByTitle } from "./find";
 
 describe("Quadrants", () => {
+	test("Does not include done items", () => {
+		const items = [
+			{ urgency: 10, importance: 10, title: "a", id: "1" },
+			{ urgency: 10, importance: 10, title: "b", id: "2", done: true },
+			{ urgency: 10, importance: 10, title: "b", id: "23", done: false },
+			{ urgency: 10, importance: 10, title: "a", id: "12" },
+			{ urgency: 10, importance: 10, title: "a", id: "14" },
+		];
+
+		const r = quadrants(items);
+		expect(r.topLeft.length).toBe(4);
+	});
 	test("Important, not urgent is in right, not left", () => {
 		const items = [
 			{ urgency: 3, importance: 7, title: "U:3:I7", id: "1" },

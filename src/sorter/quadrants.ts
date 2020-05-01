@@ -1,5 +1,5 @@
 import { savedItemsCollection } from "./types";
-import { importantOnly, urgentOnly } from "./sorters";
+import { importantOnly, urgentOnly, notDoneOnly } from "./sorters";
 import { itersection, difference } from "./find";
 export type quadrant = savedItemsCollection | null;
 export type quadrantsType = {
@@ -11,12 +11,11 @@ export type quadrantsType = {
 export default function quadrants(items: savedItemsCollection): quadrantsType {
 	const urgent = urgentOnly(items);
 	const important = importantOnly(items);
-	const topLeft = itersection(urgent, important);
-	const topRight = difference(important, urgent);
-	const bottomLeft = difference(urgent, important);
-	const bottomRight = itersection(
-		difference(items, urgent),
-		difference(items, important)
+	const topLeft = notDoneOnly(itersection(urgent, important));
+	const topRight = notDoneOnly(difference(important, urgent));
+	const bottomLeft = notDoneOnly(difference(urgent, important));
+	const bottomRight = notDoneOnly(
+		itersection(difference(items, urgent), difference(items, important))
 	);
 	return {
 		topLeft, //Urgent and important

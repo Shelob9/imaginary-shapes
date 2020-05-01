@@ -1,7 +1,7 @@
 import React from "react";
 import { ItemsContext } from "../ItemsContext";
 import { isImportant, isFun, isUrgent } from "../sorter/is";
-import { Box, Card, Text, Label, useColorMode } from "theme-ui";
+import { Card, Text, useColorMode } from "theme-ui";
 import { SavedItem } from "../sorter/types";
 import { ThumbToggle } from "./Thumbs";
 
